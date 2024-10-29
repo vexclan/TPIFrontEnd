@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
+import adminDatos from '/componentes/adminDatos/adminDatos.jsx'
 import './App.css'
 
 export default class app extends Component {
@@ -18,8 +19,8 @@ export default class app extends Component {
         <Route path="/login">
           <FormularioInicio/>
         </Route>
-        <Route path="/">
-          <FormularioInicio/>
+        <Route path="/admin/datos">
+          <adminDatos/>
         </Route>
         <Route>404</Route>
       </Switch>
