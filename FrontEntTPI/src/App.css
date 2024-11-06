@@ -1,0 +1,41 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.articulo {
+  border: 1px solid black;
+  margin: 20px;
+  padding: 10px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  flex: 1;
+  text-align:center;
+}
+
+p{
+  text-align:left;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.targeta_imagen {
+  width: 200px;
+  height: auto;
+  margin: 10px;
+}
+
+.Boton {
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 20px 10px;
+}
