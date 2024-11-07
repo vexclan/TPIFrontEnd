@@ -3,16 +3,17 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  padding-top: 60px;
 }
 
-.articulo {
-  border: 1px solid black;
+.targeta {
   margin: 20px;
-  padding: 10px;
-  padding-bottom: 20px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  color: #ffffff;
   flex: 1;
   text-align:center;
+  background-color:rgba(128, 128, 128, 0.295);
 }
 
 p{
@@ -33,9 +34,25 @@ p{
 
 .Boton {
   padding: 10px 15px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(128, 128, 128, 0.295);
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
   margin: 20px 10px;
+}
+
+#boton_navbar{
+  position: relative;
+  top: -10px;
+}
+
+.navbar {
+  background-color: rgba(128, 128, 128, 0.295);
+  width: 100%;
+  position: fixed;
+  color: rgb(251, 255, 0);
+  left: 0px;
+  top: 0px;
+  padding: 10px;
+  text-align: center;
 }

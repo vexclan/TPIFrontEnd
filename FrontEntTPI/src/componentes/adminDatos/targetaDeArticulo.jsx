@@ -8,7 +8,7 @@ export default class  extends Component {
 
     render(){
         return (
-            <div className='articulo'>
+            <div className='targeta'>
                 <img className='targeta_imagen' src="\src\componentes\imagenes\cafe.jpeg" />
                 <p>id : {this.props.objeto.id}</p>
                 <p>nombre : {this.props.objeto.nombre}</p>

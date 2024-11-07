@@ -8,7 +8,8 @@ export default class  extends Component {
 
     render(){
         return (
-            <div className='articulo'>
+            <div className='targeta'>
+                <h3>cliente</h3>
                 <p>id : {this.props.objeto.id}</p>
                 <p>correo : {this.props.objeto.correo}</p>
                 <p>id  de usuario : {this.props.objeto.id_usuario}</p>

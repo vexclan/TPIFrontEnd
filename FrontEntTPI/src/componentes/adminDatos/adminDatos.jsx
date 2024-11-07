@@ -8,7 +8,15 @@ export default class AdminDatos extends Component {
     super(props);
     this.state = {
         tabla: "cliente",
-        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
     }
   }
 
@@ -16,7 +24,7 @@ export default class AdminDatos extends Component {
     const { tabla , targetas } = this.state
     return(
         <div>
-          
+          <Navbar/>
           <div className="container">
             {tabla === "articulo" ? 
               targetas.map ((contador, index)=>
