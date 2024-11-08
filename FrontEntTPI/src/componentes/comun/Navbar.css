@@ -1,0 +1,81 @@
+.navbar {
+    background-color: rgba(128, 128, 128, 0.295);
+    width: 100%;
+    position: fixed;
+    color: rgb(251, 255, 0);
+    left: 0;
+    top: 0;
+    padding: 0px;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .boton_navbar {
+    color: rgb(251, 255, 0);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .boton_navbar:hover {
+    background-color: rgba(251, 255, 0, 0.1);
+    border-radius: 4px;
+  }
+  
+  .navbar-toggle {
+    display: none;
+    cursor: pointer;
+  }
+  
+  /* Estilos responsive */
+  @media screen and (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+    }
+  
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: rgba(128, 128, 128, 0.3);
+        padding: 20px;
+        gap: 15px;
+    }
+  
+    .navbar-links.active {
+        display: flex;
+    }
+  
+    .boton_navbar {
+        width: 100%;
+        text-align: center;
+    }
+  
+    .boton_navbar:hover {
+        background-color: rgba(251, 255, 0, 0.2);
+    }
+  }

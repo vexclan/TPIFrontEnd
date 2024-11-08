@@ -9,6 +9,7 @@
 .targeta {
   margin: 20px;
   padding: 20px;
+  max-width: 230px;
   border-radius: 20px;
   color: #ffffff;
   flex: 1;
@@ -38,15 +39,20 @@ p{
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
-  margin: 20px 10px;
+  margin: 10px 10px;
 }
 
-#boton_navbar{
+.Boton:hover {
+  
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/*
+.boton_navbar{
   position: relative;
-  top: -10px;
+  top: -8px;
 }
 
-.navbar {
+nav {
   background-color: rgba(128, 128, 128, 0.295);
   width: 100%;
   position: fixed;
@@ -55,4 +61,6 @@ p{
   top: 0px;
   padding: 10px;
   text-align: center;
-}
+}*/
+
+/* Navbar.css */
