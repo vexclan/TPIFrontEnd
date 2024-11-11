@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import Navbar from '../comun/navbarAdmin'
-import TargetaPedidos from './targetaPedidos'
+import Formulario from './formulario'
 
-export default class AdminDatos extends Component {
+export default class AdminEditar extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -20,13 +20,10 @@ export default class AdminDatos extends Component {
     return(
         <div>
           <Navbar/>
-          <div className="container">
-            {targetas.map ((contador, index)=>
-                <TargetaPedidos
-                  objeto={contador}
-                  key={index}
+          <div className="">
+                <Formulario
+                    
                 />
-              )}
           </div>
         </div>
 
