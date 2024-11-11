@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
-import FormularioInicio from '/componentes/Inicio/FormularioInicio'
+import FormularioInicio from './componentes/inicio/formularioinicio'
 import './App.css'
 
 export default class app extends Component {
@@ -17,9 +17,6 @@ export default class app extends Component {
       <Switch>
         <Route path="/"><Redirect to="/login"/></Route>
         <Route path="/login">
-          <FormularioInicio/>
-        </Route>
-        <Route path="/">
           <FormularioInicio/>
         </Route>
         <Route>404</Route>
