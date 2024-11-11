@@ -1,12 +1,12 @@
 import { Component } from 'react'
 import Navbar from '../comun/navbarAdmin'
-import TargetaCliente from './targetaDeCliente'
+import TargetaDireccion from './targetaDireccion'
 
 export default class AdminDatos extends Component {
   constructor(props){
     super(props);
     this.state = {
-        targetas: [{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]},{id:3,correo:'pepito2@gmail.com',id_usuario:2,direccion:[1,2,30,50]}]
+        targetas: [{id: 123456789,id_cliente: 987654321,calle: "Calle de la Luna 123",código_postal: "12345",id_pais: 1,id_provincia: 2,id_ciudad: 3}]
         /*CLIETE : {id:2,correo:'pepito@gmail.com',id_usuario:1,direccion:[1,2,3,4,50]} 
           ARTICULO : {imagen:"../../assets/cafe.jpeg",id:1,nombre:"cafe",descripcion:"sadasdsaddasdas",precio:200}
           dirreccion : {id:'' ,id_cliente : '' ,calle : '' ,código_postal : '' ,id_pais : '' , id_provincia :'', id_ciudad:''}
@@ -22,7 +22,7 @@ export default class AdminDatos extends Component {
           <Navbar/>
           <div className="container">
             {targetas.map ((contador, index)=>
-                <TargetaCliente
+                <TargetaDireccion
                   objeto={targetas[index]}
                   key={index}
                 />

@@ -2,6 +2,8 @@ import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
 import AdminClientes from './componentes/adminCliente/adminCliente'
 import AdminArticulo from './componentes/adminArticulo/adminArticulo'
+import AdminPedidos from './componentes/adminPedidos/adminPedidos'
+import AdminDireccion from './componentes/adminDireccion/adminDireccion'
 import './App.css'
 
 export default class app extends Component {
@@ -29,10 +31,10 @@ export default class app extends Component {
           <AdminArticulo/>
         </Route>
         <Route path="/admin/dirrecciones" >
-
+          <AdminDireccion/>
         </Route>
         <Route path="/admin/pedidos" >
-
+          <AdminPedidos/>
         </Route>
         <Route>404</Route>
       </Switch>
