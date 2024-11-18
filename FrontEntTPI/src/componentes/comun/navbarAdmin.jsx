@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AlignJustify, House } from 'lucide-react';
-import Boton from '../comun/Boton';
+import Boton from '../comun/BotonRedireccionador';
 import './Navbar.css';
 
 export default class Navbar extends Component {
@@ -24,33 +24,37 @@ export default class Navbar extends Component {
             <nav className="navbar">
                 <div className="navbar-container">
                     <div className="navbar-left">
-                        <House size={32} color="#fbff00" />
+                        <Boton 
+                            ruta='/admin/clientes'
+                        >
+                            <House 
+                                className='boton_navbar'
+                                size={32} 
+                                color="#fbff00" 
+                            />
+                        </Boton>
                     </div>
 
                     <div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
                         <Boton
                             className='boton_navbar'
-                            click={() => console.log('cliente')}
-                            titulo='cliente'
-                        />
+                            ruta='/admin/clientes'
+                        >cliente</Boton>
                         
                         <Boton
                             className='boton_navbar'
-                            click={() => console.log('articulo')}
-                            titulo='articulo'
-                        />
+                            ruta='/admin/articulos'
+                        >articulo</Boton>
                         
                         <Boton
                             className='boton_navbar'
-                            click={() => console.log('dirrección')}
-                            titulo='dirrección'
-                        />
+                            ruta='/admin/dirrecciones'
+                        >dirrección</Boton>
                         
                         <Boton
                             className='boton_navbar'
-                            click={() => console.log('pedidos')}
-                            titulo='pedidos'
-                        />
+                            ruta='/admin/pedidos'
+                        >pedidos</Boton>
                     </div>
 
                     <div className="navbar-toggle" onClick={this.toggleMenu}>

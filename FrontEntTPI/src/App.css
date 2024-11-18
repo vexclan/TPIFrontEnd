@@ -25,6 +25,7 @@ p{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .targeta_imagen {
@@ -45,4 +46,8 @@ p{
 .Boton:hover {
   
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+a {
+  text-decoration: none;
 }

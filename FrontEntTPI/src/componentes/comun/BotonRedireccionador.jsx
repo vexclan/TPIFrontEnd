@@ -9,7 +9,7 @@ export default class Boton extends Component {
     render(){
         return (
             <Link to={this.props.ruta} >
-                <span className='Boton' >
+                <span className={this.props.className} >
                     {this.props.children}
                 </span>
             </Link>

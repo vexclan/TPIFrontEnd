@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import Navbar from '../comun/navbarAdmin'
 import Formulario from './formulario'
-import ArticuloPedido from './articuloPedido';
 
 export default class AdminEditar extends Component {
   constructor(props){
@@ -16,10 +15,7 @@ export default class AdminEditar extends Component {
         <div>
           <Navbar/>
           <div className="container">
-                <Formulario/>
-                <ArticuloPedido
-                  articulo={this.state.articulo}
-                />
+            <Formulario/>
           </div>
         </div>
 

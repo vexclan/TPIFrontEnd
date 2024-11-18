@@ -4,7 +4,9 @@ import AdminClientes from './componentes/adminCliente/adminCliente'
 import AdminArticulo from './componentes/adminArticulo/adminArticulo'
 import AdminPedidos from './componentes/adminPedidos/adminPedidos'
 import AdminDireccion from './componentes/adminDireccion/adminDireccion'
+import AdminDireccionEditar from './componentes/adminDireccionEditar/adminArticuloEditar'
 import AdminPedidosEditar from './componentes/adminPedidosEditar/adminPedidosEditar'
+import AdminArticulosEditar from './componentes/adminArticuloEditar/adminArticuloEditar'
 import './App.css'
 
 export default class app extends Component {
@@ -34,11 +36,17 @@ export default class app extends Component {
         <Route path="/admin/dirrecciones" >
           <AdminDireccion/>
         </Route>
+        <Route path="/admin/dirrecciones/editar" >
+          <AdminDireccionEditar/>
+        </Route>
         <Route path="/admin/pedidos" >
           <AdminPedidos/>
         </Route>
         <Route path="/admin/pedidos/editar" >
           <AdminPedidosEditar/>
+        </Route>
+        <Route path="/admin/articulos/editar" >
+          <AdminArticulosEditar/>
         </Route>
         <Route>404</Route>
       </Switch>
