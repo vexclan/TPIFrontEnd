@@ -14,14 +14,6 @@ const CoffeeShop = () => {
     { id: 4, name: 'objeto en el carrito 4', price: 15.99, image: '/api/placeholder/80/80' },
   ];
 
-  const menuItems = [
-    { id: 1, name: 'lagrima', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 2, name: 'capuchino', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 3, name: 'americano', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 4, name: 'irlandes', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 5, name: 'expresso', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 6, name: 'machiatto', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-  ];
 
   const products = [
     { id: 1, name: 'cafe de nicaragua', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
@@ -94,23 +86,6 @@ const CoffeeShop = () => {
               Más Información
             </button>
           </div>
-        </div>
-      </section>
-
-      <section id="menu" className="py-16 bg-gray-100">
-        <h1 className="text-center text-4xl font-bold mb-12">nuestro <span className="text-yellow-600">menu</span></h1>
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {menuItems.map(item => (
-            <div key={item.id} className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <img src={item.image} alt={item.name} className="w-40 h-40 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-              <div className="mb-4">
-                <span className="text-yellow-600">${item.price}</span>
-                <span className="text-gray-400 line-through ml-2">${item.oldPrice}</span>
-              </div>
-              <button className="bg-yellow-600 text-white px-6 py-2 rounded">añadir al carrito</button>
-            </div>
-          ))}
         </div>
       </section>
 
