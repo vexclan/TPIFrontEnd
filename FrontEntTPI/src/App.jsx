@@ -1,12 +1,15 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
 import AdminClientes from './componentes/adminCliente/adminCliente'
+import AdminClientesEditar from './componentes/adminClienteEditar/adminArticuloEditar'
+import AdminClientesCrear from './componentes/adminClienteCrear/adminArticuloCrear'
 import AdminArticulo from './componentes/adminArticulo/adminArticulo'
+import AdminArticulosEditar from './componentes/adminArticuloEditar/adminArticuloEditar'
+import AdminArticulosCrear from './componentes/adminArticuloCrear/adminArticuloCrear'
 import AdminPedidos from './componentes/adminPedidos/adminPedidos'
+import AdminPedidosEditar from './componentes/adminPedidosEditar/adminPedidosEditar'
 import AdminDireccion from './componentes/adminDireccion/adminDireccion'
 import AdminDireccionEditar from './componentes/adminDireccionEditar/adminArticuloEditar'
-import AdminPedidosEditar from './componentes/adminPedidosEditar/adminPedidosEditar'
-import AdminArticulosEditar from './componentes/adminArticuloEditar/adminArticuloEditar'
 import './App.css'
 
 export default class app extends Component {
@@ -30,8 +33,20 @@ export default class app extends Component {
         <Route path="/admin/articulos" >
           <AdminArticulo/>
         </Route>
+        <Route path="/admin/articulos/editar" >
+          <AdminArticulosEditar/>
+        </Route>
+        <Route path="/admin/articulos/crear" >
+          <AdminArticulosCrear/>
+        </Route>
         <Route path="/admin/clientes" >
           <AdminClientes/>
+        </Route>
+        <Route path="/admin/clientes/editar" >
+          <AdminClientesEditar/>
+        </Route>
+        <Route path="/admin/clientes/crear" >
+          <AdminClientesCrear/>
         </Route>
         <Route path="/admin/dirrecciones" >
           <AdminDireccion/>
@@ -44,9 +59,6 @@ export default class app extends Component {
         </Route>
         <Route path="/admin/pedidos/editar" >
           <AdminPedidosEditar/>
-        </Route>
-        <Route path="/admin/articulos/editar" >
-          <AdminArticulosEditar/>
         </Route>
         <Route>404</Route>
       </Switch>

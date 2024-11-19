@@ -1,5 +1,6 @@
 import { Component } from 'react'
-import Boton from '../comun/Boton'
+import Boton from '../comun/Boton';
+import BotonRedireccionador from '../comun/BotonRedireccionador'
 
 export default class  extends Component {
     constructor(props){
@@ -14,12 +15,12 @@ export default class  extends Component {
                 <p>nombre : {this.props.objeto.nombre}</p>
                 <p>descripcion : {this.props.objeto.descripcion}</p>
                 <p>precio : {this.props.objeto.precio}</p>
+                <BotonRedireccionador
+                    className='Boton'
+                    ruta={'/admin/articulos/editar?id='+this.props.objeto.id}
+                >editar</BotonRedireccionador>
                 <Boton
-                    click={()=>console.log('editar')}
-                    titulo='editar'
-                />
-                <Boton
-                    click={()=>console.log('borrar')}
+                    click={()=>this.props.borrar(this.props.objeto.id)}
                     titulo='borrar'
                 />
             </div>
