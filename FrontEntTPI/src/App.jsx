@@ -1,7 +1,8 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
 import './App.css'
-import FormulariDeDependenciaDeDireccion from './componentes/formularioDeDependenciaDeDireccion/formulariDeDependenciaDeDireccion'
+import FormulariDeDependenciaDeDireccion from './componentes/formularioDeDependenciaDeDireccion/Formdirectadmin'
+import PedidoDeDependencia from './componentes/PedidoDeDependencia/Pedidos'
 
 export default class app extends Component {
   constructor(props){
@@ -17,6 +18,12 @@ export default class app extends Component {
       <Switch>
         <Route path="/admin/pais/editar">
           <FormulariDeDependenciaDeDireccion/>
+        </Route>
+        <Route path="/cliente/Pedidos">
+          <PedidoDeDependencia/>
+        </Route>
+        <Route path="/Cliente/Pago/">
+          <PagoDeDependencia/>
         </Route>
         <Route>404</Route>
       </Switch>

@@ -8,9 +8,11 @@ export default class Boton extends Component {
     render(){
         return (
             <span 
-            className='Boton'
-            onClick={()=> this.props.click()}
-            >{this.props.titulo}</span>
+                className='Boton'
+                onClick={()=> this.props.click()}
+            >
+                {this.props.titulo}
+            </span>
         )
     }
 }

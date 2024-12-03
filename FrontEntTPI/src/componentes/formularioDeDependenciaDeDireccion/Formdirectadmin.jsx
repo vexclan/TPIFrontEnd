@@ -1,16 +1,16 @@
 import { Component } from 'react'
 import Formulario from './Formulario'
 import './formulario.css'
-import {House} from 'lucide-react '
+import {House} from 'lucide-react'
 
-export default class FormulariDeDependenciaDeDireccion extends Component {
+export default class Formdirectadmin extends Component {
     constructor(props){
         super(props);
     }
 
     render(){
         return (
-            <div className='formulari'>
+            <div className='formulariodireccion'>
                 <Formulario
                     titulo="Pais"
                     click={(valor)=> console.log('Agregar')}
