@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import React, { useState, useEffect } from 'react';
+import { WalletCards } from 'lucide-react';
 
 const facturaData = {
   numero: "F-2024-001",
@@ -39,9 +39,6 @@ const FacturacionApp = () => {
     return productos.reduce((acc, item) => acc + (item.cantidad * item.precioUnitario), 0);
   };
 
-  const calcularIVA = (subtotal) => {
-    return subtotal * 0.16;
-  };
 
   if (loading) {
     return (
@@ -60,12 +57,10 @@ const FacturacionApp = () => {
   }
 
   const subtotal = calcularSubtotal(factura.productos);
-  const iva = calcularIVA(subtotal);
-  const total = subtotal + iva;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500 p-6">
-      <Card className="max-w-4xl mx-auto bg-white p-8 shadow-xl">
+      <WalletCards className="max-w-4xl mx-auto bg-white p-8 shadow-xl">
         <div className="border-b border-gray-200 pb-4 mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Factura</h1>
           <div className="mt-4 text-gray-600">
@@ -116,13 +111,12 @@ const FacturacionApp = () => {
         <div className="border-t border-gray-200 pt-4">
           <div className="text-right space-y-2">
             <p className="text-gray-600">Subtotal: ${subtotal.toFixed(2)}</p>
-            <p className="text-gray-600">IVA (16%): ${iva.toFixed(2)}</p>
             <p className="text-xl font-bold text-gray-800">
               Total: ${total.toFixed(2)}
             </p>
           </div>
         </div>
-      </Card>
+      </WalletCards>
     </div>
   );
 };

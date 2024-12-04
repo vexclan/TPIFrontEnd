@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CreditCard, Mail, User, Home, Loader } from 'lucide-react';  
-import 'Pedidos.css';
+import './Pedidos.css';
+import axios from 'axios';
 
 const PaymentPage = () => {
   const [productos, setProductos] = useState([]);
+  const [Card, setCard] = useState ([]);
   const [loading, setLoading] = useState(true);
   const [ProcesarPago, setProcesarPago] = useState(false);
   const [error, setError] = useState('');
@@ -16,11 +18,34 @@ const PaymentPage = () => {
     FechaVencimiento: '',
     CVV: ''
   });
+  async function get(dato) {
+    const token = sessionStorage.getItem("token")
+    const url = "http://localhost:3000/api/articulo"
+    const config = {
+      Headers:{
+        authorization:token
+      },
+      params: {
+        id: dato !== ""? dato: null
+      }
+    }
+    console.log(config)
+
+    try {
+      const respuesta = await axios.get(url,config);
+      console.log('respuesta data get :',respuesta.data);
+      return respuesta;
+    } catch (error) {
+      console.log(error);
+      alert(error);
+      throw error;
+    }
+  } 
   useEffect(() => {
     const fetchProductos = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 1000));
-        const mockProductos = [
+        /*const mockProductos = [
           {
             id: 1,
             nombre: "Cafe",
@@ -37,7 +62,7 @@ const PaymentPage = () => {
             imagen: "/api/placeholder/200/200",
             descripcion: "Bebida helada a base de cafe,azucar, hielo y crema"
           }
-        ];
+        ];*/
         setProductos(mockProductos);
         setLoading(false);
       } catch (error) {
@@ -97,7 +122,7 @@ const PaymentPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500 p-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6">
+        <card className="p-6">
           <h2 className="text-2xl font-bold mb-6">Tu Carrito</h2>
           
           <div className="space-y-4 mb-6">
@@ -126,18 +151,15 @@ const PaymentPage = () => {
               <span>${subtotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-gray-600">
-              <span>IVA (16%):</span>
-              <span>${iva.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-xl font-bold mt-4">
               <span>Total:</span>
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
-        </Card>
+        </card>
 
-        {}
-        <Card className="p-6">
+        {/*<card className="p-6">
           <h2 className="text-2xl font-bold mb-6">Información de Pago</h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -146,7 +168,7 @@ const PaymentPage = () => {
                 <label className="text-sm font-medium">Nombre</label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
+                  <input
                     name="nombre"
                     value={formData.Nombre}
                     onChange={Identiinput}
@@ -160,7 +182,7 @@ const PaymentPage = () => {
                 <label className="text-sm font-medium">Apellido</label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
+                  <input
                     name="apellido"
                     value={formData.Apellido}
                     onChange={Identiinput}
@@ -175,7 +197,7 @@ const PaymentPage = () => {
               <label className="text-sm font-medium">Dirección</label>
               <div className="relative">
                 <Home className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
+                <input
                   name="direccion"
                   value={formData.Direccion}
                   onChange={Identiinput}
@@ -189,7 +211,7 @@ const PaymentPage = () => {
               <label className="text-sm font-medium">Email</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
+                <input
                   type="Email"
                   name="Email"
                   value={formData.Email}
@@ -204,7 +226,7 @@ const PaymentPage = () => {
               <label className="text-sm font-medium">Número de Tarjeta</label>
               <div className="relative">
                 <CreditCard className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
+                <input
                   name="numeroTarjeta"
                   value={formData.NumeroTarjeta}
                   onChange={Identiinput}
@@ -219,7 +241,7 @@ const PaymentPage = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Fecha de Vencimiento</label>
-                <Input
+                <input
                   name="fechaVencimiento"
                   value={formData.FechaVencimiento}
                   onChange={Identiinput}
@@ -231,7 +253,7 @@ const PaymentPage = () => {
               
               <div className="space-y-2">
                 <label className="text-sm font-medium">CVV</label>
-                <Input
+                <input
                   type="password"
                   name="cvv"
                   value={formData.CVV}
@@ -246,7 +268,7 @@ const PaymentPage = () => {
               <div className="text-red-500 text-sm p-2 bg-red-50 rounded">{error}</div>
             )}
 
-            <Button 
+            <button 
               type="submit" 
               className="w-full bg-amber-700 hover:bg-amber-800 text-white"
               disabled={ProcesarPago}
@@ -259,9 +281,9 @@ const PaymentPage = () => {
               ) : (
                 'Realizar Pago'
               )}
-            </Button>
+            </button>
           </form>
-        </Card>
+        </card>*/}
       </div>
     </div>
   );

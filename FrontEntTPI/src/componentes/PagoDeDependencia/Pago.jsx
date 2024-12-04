@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  CreditCard, 
-  User, 
-  CalendarDays, 
-  Lock, 
-  Check, 
-  X 
-} from 'lucide-react';
+import { CreditCard, User, CalendarDays, Lock, Check, X } from 'lucide-react';
 import './pago.css';
 
 const PaymentPage = () => {
@@ -161,7 +154,7 @@ const PaymentPage = () => {
           >
             {isCardValid === true ? <Check className="button-icon" /> : 
              isCardValid === false ? <X className="button-icon" /> : 
-             'Validar Tarjeta'}
+             'Pagar'}
           </button>
         </form>
       </div>
