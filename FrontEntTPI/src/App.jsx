@@ -1,8 +1,7 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
 import AdminClientes from './componentes/adminCliente/adminCliente'
-import AdminClientesEditar from './componentes/adminClienteEditar/adminArticuloEditar'
-import AdminClientesCrear from './componentes/adminClienteCrear/adminArticuloCrear'
+import AdminClientesEditar from './componentes/adminClienteEditar/adminClienteEditar'
 import AdminArticulo from './componentes/adminArticulo/adminArticulo'
 import AdminArticulosEditar from './componentes/adminArticuloEditar/adminArticuloEditar'
 import AdminArticulosCrear from './componentes/adminArticuloCrear/adminArticuloCrear'
@@ -16,7 +15,6 @@ export default class app extends Component {
   constructor(props){
     super(props)
     this.state = {
-      menu:"login"
     }
   }
 
@@ -36,6 +34,13 @@ export default class app extends Component {
         <Route path="/admin/articulos/editar" >
           <AdminArticulosEditar/>
         </Route>
+        <Route path="/admin/articulos/editar/:id" >
+          {(params)=>
+            <AdminArticulosEditar
+              id={params.id} 
+            />
+          }
+        </Route>
         <Route path="/admin/articulos/crear" >
           <AdminArticulosCrear/>
         </Route>
@@ -45,8 +50,12 @@ export default class app extends Component {
         <Route path="/admin/clientes/editar" >
           <AdminClientesEditar/>
         </Route>
-        <Route path="/admin/clientes/crear" >
-          <AdminClientesCrear/>
+        <Route path="/admin/clientes/editar/:id" >
+          {(params)=>
+            <AdminClientesEditar
+              id={params.id}
+            />
+          }
         </Route>
         <Route path="/admin/dirrecciones" >
           <AdminDireccion/>
@@ -54,11 +63,25 @@ export default class app extends Component {
         <Route path="/admin/dirrecciones/editar" >
           <AdminDireccionEditar/>
         </Route>
+        <Route path="/admin/dirrecciones/editar/:id" >
+          {(params)=>
+            <AdminDireccionEditar
+              id={params.id}
+            />
+          }
+        </Route>
         <Route path="/admin/pedidos" >
           <AdminPedidos/>
         </Route>
         <Route path="/admin/pedidos/editar" >
           <AdminPedidosEditar/>
+        </Route>
+        <Route path="/admin/pedidos/editar/:id" >
+          {(params)=>
+            <AdminPedidosEditar
+              id={params.id}
+            />
+          }
         </Route>
         <Route>404</Route>
       </Switch>

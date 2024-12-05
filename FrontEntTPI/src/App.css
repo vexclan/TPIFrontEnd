@@ -6,17 +6,6 @@
   padding-top: 60px;
 }
 
-.targeta {
-  margin: 20px;
-  padding: 20px;
-  max-width: 230px;
-  border-radius: 20px;
-  color: #ffffff;
-  flex: 1;
-  text-align:center;
-  background-color:rgba(128, 128, 128, 0.295);
-}
-
 p{
   text-align:left;
 }
@@ -28,10 +17,14 @@ p{
   gap: 10px;
 }
 
-.targeta_imagen {
-  width: 200px;
-  height: auto;
-  margin: 10px;
+.targeta {
+  margin: 20px;
+  padding: 20px;
+  max-width: 230px;
+  border-radius: 20px;
+  color: #ffffff;
+  flex: 1;
+  text-align:center;
 }
 
 .Boton {

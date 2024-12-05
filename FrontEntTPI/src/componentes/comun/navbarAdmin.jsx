@@ -43,6 +43,11 @@ export default class Navbar extends Component {
                         
                         <Boton
                             className='boton_navbar'
+                            ruta='/admin/clientes'
+                        >ubicacion</Boton>
+
+                        <Boton
+                            className='boton_navbar'
                             ruta='/admin/articulos'
                         >articulo</Boton>
                         

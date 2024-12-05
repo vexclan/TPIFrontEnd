@@ -38,7 +38,13 @@ option{
 }
 
 
+.desactivado {
+    background-color: rgba(255, 0, 0, 0.308);
+}
 
+.activo {    
+  background-color:rgba(128, 128, 128, 0.295);
+}
 
 
 

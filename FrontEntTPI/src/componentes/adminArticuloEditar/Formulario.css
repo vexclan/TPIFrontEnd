@@ -17,6 +17,7 @@ label {
 img {
     width: 325px;
     height: auto;
+    max-height: 400px;
     margin: 10px;
 }
 
@@ -36,7 +37,6 @@ img {
 option{
     background:rgba(128, 128, 128);
 }
-
 
 
 

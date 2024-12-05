@@ -9,7 +9,7 @@ export default class  extends Component {
     render(){
         return (
             <div className='articulo'>
-                <img className='imagen_del_articulo' src="\src\componentes\imagenes\cafe.jpeg" />
+                <img className='imagen_del_articulo' src={'http://localhost:3000/'+this.props.objeto.imagen} />
                 <div className='texto'>
                     <p>id: {this.props.objeto.id}<br/>
                     id del articulo: {this.props.objeto.id_de_cliente}<br/>

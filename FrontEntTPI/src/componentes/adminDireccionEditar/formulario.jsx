@@ -1,23 +1,154 @@
 import { Component } from 'react'
 import Boton from '../comun/Boton'
-import './Formulario.css'
+import '../comun/Formulario.css'
+import axios from 'axios'
 
 export default class FormulariEditar extends Component {
   constructor(props){
     super(props);
     this.state = {
-        ID:[1,2,3,4,5],
-        ID_CLIENTE:[{id:10 , nombre: 'pepito'},{id:9 , nombre: 'celina'},{id:8 , nombre: 'ivan'},{id:7 , nombre: 'agustin'},{id:6 , nombre: 'jorge'}],
-        Calle:"", 
+        id:'',
+        direccion:[],
+        id_array:[],
         codigo_postal:"",
-        ID_ciudad:[{id:1 , nombre: 'Ushuaia'},{id:2 , nombre: 'tolguin'},{id:3 , nombre: 'rio grande'}],
-        ID_pais:[{id:10 , nombre: 'argentina'},{id:9 , nombre: 'paraguai'},{id:8 , nombre: 'bolivia'},{id:7 , nombre: 'peru'},{id:6 , nombre: 'uruguai'}],
-        ID_provincia:[{id:10 , nombre: 'TDF'},{id:9 , nombre: 'Buenos Aires'},{id:8 , nombre: 'Santa fe'},{id:7 , nombre: 'Chubut'},{id:6 , nombre: 'Entre Rios'}]
+        calle:"", 
+        datosForaneos:[{Ciudad:[]},{Pais:[]},{Provincia:[]},{Cliente:[]}],
+        cliente:'',
+        ciudad:'',
+        pais:'',
+        provincia:''
     }
   }
 
+  
+  cargarDireccion(ID){
+    this.setState({id:ID})
+    console.log('actualizando el direccion mostrado : ',this.state.direccion[ID],' id : ', ID);
+    /*this.setState({: this.state.direccion[ID].})*/
+    this.setState({cliente: this.state.direccion[ID].id_cliente})
+    this.setState({calle: this.state.direccion[ID].calle})
+    this.setState({codigo_postal: this.state.direccion[ID].código_postal})
+    this.setState({ciudad: this.state.direccion[ID].id_ciudad})
+    this.setState({pais: this.state.direccion[ID].id_pais})
+    this.setState({provincia: this.state.direccion[ID].id_provincia})
+    this.setState({activo: this.state.direccion[ID].activo})
+  }
+
+  async componentDidMount() {
+    sessionStorage.setItem('token' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0MjA4MTgsImRhdGEiOnsiVXN1YXJpb19pZCI6MSwiVXN1YXJpbyI6IkRpZWdvIn0sImlhdCI6MTczMzM5OTIxOH0.PIh6ZiRjdKInm3YMGqh2rkW_3Q3MBQzmzuQzdWfrlDA')
+    const token = sessionStorage.getItem("token")
+    this.setState({token: token })
+    console.log('token : '+token);
+    const respuesta = await this.get()
+    await this.getTablasCecundarias()
+    const array = []
+
+    console.log('id a editar traida de vista direccion : ',parseInt(this.props.id))
+    for (let i = 0; i < respuesta.data.Direccion.length; i++) {
+      array.push(i)
+      if (respuesta.data.Direccion[i].id == parseInt(this.props.id)) {
+        this.cargarDireccion(i)        
+        console.log('cargar direccion se debio activar');
+        
+      }
+    }
+    
+    this.setState({id_array:array})
+    console.log('id_array : ',array);
+    
+    
+  }
+
+  async getTablasCecundarias () {   
+    const token = sessionStorage.getItem("token")
+    const url = "http://localhost:3000/api/"
+    const config = {
+      headers:{
+        authorization:token
+      }
+    }
+    console.log(config);
+    const ruta = ['ciudad','pais','provincia','cliente']
+    const array = []
+    for (let i = 0; i < ruta.length; i++) {
+      try {
+        console.log('ruta : '+url+ruta[i]);
+        const respuesta = await axios.get(url+ruta[i],config);
+        console.log('respuesta data get '+ruta[i]+' :',respuesta.data);
+        array.push(respuesta.data)
+      } catch (error) {
+        console.log(error);
+        alert(error);
+        throw error;
+      }      
+    }    
+    this.setState({datosForaneos: array})
+    console.log('array :',array);
+    
+  }
+
+  async get (dato) {   
+    const token = sessionStorage.getItem("token")
+    const url = "http://localhost:3000/api/direccion"
+    const config = {
+      headers:{
+        authorization:token
+      },
+      params:{
+        id: dato !== "" ? dato : null        
+      }
+    }
+
+    console.log(config);
+
+    try {
+      const respuesta = await axios.get(url,config);
+      console.log('respuesta data get :',respuesta.data.Direccion);
+      this.setState({direccion: respuesta.data.Direccion})
+      return respuesta;
+    } catch (error) {
+      console.log(error);
+      alert(error);
+      throw error;
+    }
+    
+  }
+
+  editar(){
+    console.log(this.state.direccion[this.state.id]);
+    
+    const url = "http://localhost:3000/api/direccion"
+    const config = {
+      headers:{
+        authorization:this.state.token
+      },
+      params:{
+        id: this.state.direccion[this.state.id].id !== "" ? this.state.direccion[this.state.id].id : null        
+      }
+    }    
+    const datos = {
+      calle:this.state.direccion[this.state.id].calle !== "" ? this.state.direccion[this.state.id].calle : null,
+      código_postal:this.state.direccion[this.state.id].código_postal !== "" ? this.state.direccion[this.state.id].código_postal : null,
+      id_cliente:this.state.direccion[this.state.id].id_cliente !== "" ? this.state.direccion[this.state.id].id_cliente : null,
+      id_pais:this.state.direccion[this.state.id].id_pais !== "" ? this.state.direccion[this.state.id].id_pais : null,
+      id_provincia:this.state.direccion[this.state.id].id_provincia !== "" ? this.state.direccion[this.state.id].id_provincia : null,
+      id_ciudad:this.state.direccion[this.state.id].id_ciudad !== "" ? this.state.direccion[this.state.id].id_ciudad : null,
+      /**:this.state.direccion[this.state.id]. !== "" ? this.state.direccion[this.state.id]. : null, */
+      activo:this.state.activo !== 1 ? this.state.activo : 0,
+    }
+    console.log(' token : ',this.state.token , ' id : ' , this.state.direccion[this.state.id].id , ' formData : ' , datos);
+    axios.put(url,datos,config)
+    .then((respuesta) => {
+      console.log('respuesta data put : ',respuesta.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("Error")
+    })  
+  }
+
   render(){
-    const { ID , ID_CLIENTE , Calle , codigo_postal , ID_ciudad , ID_pais , ID_provincia} = this.state
+    const { id , direccion , id_array , cliente , calle , codigo_postal , ciudad , pais , provincia , datosForaneos , activo} = this.state
     return(
       <div className='formulario'>
 
@@ -30,10 +161,12 @@ export default class FormulariEditar extends Component {
         <select 
           className='input_form' 
           id='Id' 
+          value={id}
+          onChange={(e)=> this.cargarDireccion(e.target.value)}
         >
-          <option>id a editar</option>
-          {ID.map((contador, index)=>
-            <option value={contador} key={index}>{contador}</option>
+          <option value={null}>id a editar</option>
+          {id_array.map((contador, index)=>
+            <option value={contador} key={index}>{direccion[contador].id}</option>
           )}
         </select>
 
@@ -44,26 +177,28 @@ export default class FormulariEditar extends Component {
         </label>
         <select 
           className='input_form' 
-          id='Id_Cleinte'
+          id='id_cliente'
+          value={cliente}
+          onChange={(e)=> this.setState({cliente: e.target.value})}
         >
           <option>id del cliente</option>
-          {ID_CLIENTE.map((contador, index)=>
-            <option value={contador.id} key={index}>{contador.id} ({contador.nombre})</option>
+          {datosForaneos[3].Cliente.map((contador, index)=>
+            <option value={contador.id} key={index}>{contador.id} ({contador.Usuario})</option>
           )}
         </select>
 
         <label 
-          htmlFor="Calle"
+          htmlFor="calle"
         >
           Calle 
         </label>
         <input
-          id='Calle'
+          id='calle'
           type="text"
           className='input_form'
-          placeholder='Calle'
-          value={Calle}
-          onChange={(e)=> this.setState({Calle:e.target.value})}
+          placeholder='calle'
+          value={calle}
+          onChange={(e)=> this.setState({calle:e.target.value})}
         />
 
         <label 
@@ -81,16 +216,18 @@ export default class FormulariEditar extends Component {
         />
 
         <label 
-          htmlFor="ID_ciudad"
+          htmlFor="id_ciudad"
         >
           Id ciudad
         </label>
         <select 
           className='input_form' 
-          id='ID_ciudad'
+          id='id_ciudad'
+          value={ciudad}
+          onChange={(e)=> this.setState({ciudad: e.target.value})}
         >
           <option>id del ciudad</option>
-          {ID_ciudad.map((contador, index)=>
+          {datosForaneos[0].Ciudad.map((contador, index)=>
             <option value={contador.id} key={index}>{contador.id} ({contador.nombre})</option>
           )}
         </select>
@@ -102,9 +239,11 @@ export default class FormulariEditar extends Component {
         <select 
           className='input_form' 
           id='ID_provincia'
+          value={provincia}
+          onChange={(e)=> this.setState({provincia: e.target.value})}
         >
           <option>id del provincia</option>
-          {ID_provincia.map((contador, index)=>
+          {datosForaneos[2].Provincia.map((contador, index)=>
             <option value={contador.id} key={index}>{contador.id} ({contador.nombre})</option>
           )}
         </select>
@@ -116,12 +255,41 @@ export default class FormulariEditar extends Component {
         <select 
           className='input_form' 
           id='ID_pais'
+          value={pais}
+          onChange={(e)=> this.setState({pais: e.target.value})}
         >
           <option>id del pais</option>
-          {ID_pais.map((contador, index)=>
+          {datosForaneos[1].Pais.map((contador, index)=>
             <option value={contador.id} key={index}>{contador.id} ({contador.nombre})</option>
           )}
         </select>
+        
+        <h3>estado del producto ({activo===0? 'se muestra':'no se muestra'})</h3>
+
+        <label 
+          htmlFor="activo"
+        >
+        <input
+          id='activo'
+          type="radio"
+          name='activo'
+          value={activo}
+          onChange={(e)=> this.setState({activo:0})}
+        />
+          activo
+        </label>
+        <label 
+          htmlFor="desactivado"
+        >
+        <input
+          id='desactivado'
+          type="radio"
+          name='activo'
+          value={activo}  
+          onChange={(e)=> this.setState({activo:1})}
+        />
+          desactivado
+        </label><br/>
 
         <Boton 
           className=''
