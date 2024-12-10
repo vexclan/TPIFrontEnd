@@ -9,7 +9,7 @@ export default class FormulariEditar extends Component {
     this.state = {
         id_pedido:'',
         Pedido:[],
-        cliente:[{id:10 , nombre: 'pepito'},{id:9 , nombre: 'celina'}],
+        cliente:[],
         id_cliente:1,
         precio_envio:"", 
         fecha:"",
@@ -37,7 +37,7 @@ export default class FormulariEditar extends Component {
   }
   
   async componentDidMount() {
-    sessionStorage.setItem('token' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0NDQ3NzksImRhdGEiOnsiVXN1YXJpb19pZCI6MSwiVXN1YXJpbyI6IkRpZWdvIn0sImlhdCI6MTczMzQyMzE3OX0.llyZfGKq-ox8911AqWhbXhN6DoDbNsyn-uyGaoNO0uI')
+    //sessionStorage.setItem('token' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM4ODc4ODAsImRhdGEiOnsiVXN1YXJpb19pZCI6MSwiVXN1YXJpbyI6IkRpZWdvIn0sImlhdCI6MTczMzg2NjI4MH0.6dVj1pLW0qgQPjg-DE22RdJn_jzAmEk4zJhmfdDMO_I')
     const token = sessionStorage.getItem('token')
     this.setState({token: token })
     console.log('estado de token : ',this.state.token);

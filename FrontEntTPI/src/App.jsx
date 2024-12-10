@@ -9,6 +9,7 @@ import AdminPedidos from './componentes/adminPedidos/adminPedidos'
 import AdminPedidosEditar from './componentes/adminPedidosEditar/adminPedidosEditar'
 import AdminDireccion from './componentes/adminDireccion/adminDireccion'
 import AdminDireccionEditar from './componentes/adminDireccionEditar/adminArticuloEditar'
+import AdminUbicacion from './componentes/adminPaisProvinciaCiudad/adminPaisProvinciaCiudad'
 import './App.css'
 
 export default class app extends Component {
@@ -82,6 +83,9 @@ export default class app extends Component {
               id={params.id}
             />
           }
+        </Route>
+        <Route path="/admin/ubicacion" >
+          <AdminUbicacion/>
         </Route>
         <Route>404</Route>
       </Switch>
