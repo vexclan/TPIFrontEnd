@@ -1,7 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, Mail, User, Home, Loader } from 'lucide-react';  
+import { Component, Loader } from 'lucide-react';  
 import './Pedidos.css';
 import axios from 'axios';
+get()
+
+async function get(dato) {
+  sessionStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0NjMwMTgsImRhdGEiOnsiVXN1YXJpb19pZCI6NSwiVXN1YXJpbyI6IkNlbGluYSJ9LCJpYXQiOjE3MzM0NDE0MTh9.-XYiY4Z-8zpQMyYH2ixVduoo7voTXkGLkV2HPpZrKwI')
+  const token = sessionStorage.getItem('token')
+  const url = "http://localhost:3000/api/articulo"
+  const config = {
+    headers:{
+      authorization:token
+    },
+    params: {
+      id: dato !== ""? dato: null
+    }
+  }
+  console.log(config)
+
+  try {
+    const respuesta = await axios.get(url,config);
+    console.log('respuesta data get :',respuesta.data);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+    alert(error);
+    throw error;
+  }
+}
 
 const PaymentPage = () => {
   const [productos, setProductos] = useState([]);
@@ -18,29 +44,8 @@ const PaymentPage = () => {
     FechaVencimiento: '',
     CVV: ''
   });
-  async function get(dato) {
-    const token = sessionStorage.getItem("token")
-    const url = "http://localhost:3000/api/articulo"
-    const config = {
-      Headers:{
-        authorization:token
-      },
-      params: {
-        id: dato !== ""? dato: null
-      }
-    }
-    console.log(config)
-
-    try {
-      const respuesta = await axios.get(url,config);
-      console.log('respuesta data get :',respuesta.data);
-      return respuesta;
-    } catch (error) {
-      console.log(error);
-      alert(error);
-      throw error;
-    }
-  } 
+  
+   
   useEffect(() => {
     const fetchProductos = async () => {
       try {
@@ -63,7 +68,7 @@ const PaymentPage = () => {
             descripcion: "Bebida helada a base de cafe,azucar, hielo y crema"
           }
         ];*/
-        setProductos(mockProductos);
+        setProductos(MockProductos);
         setLoading(false);
       } catch (error) {
         setError('Error al cargar los productos');
@@ -158,132 +163,6 @@ const PaymentPage = () => {
             </div>
           </div>
         </card>
-
-        {/*<card className="p-6">
-          <h2 className="text-2xl font-bold mb-6">Información de Pago</h2>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Nombre</label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <input
-                    name="nombre"
-                    value={formData.Nombre}
-                    onChange={Identiinput}
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Apellido</label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <input
-                    name="apellido"
-                    value={formData.Apellido}
-                    onChange={Identiinput}
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Dirección</label>
-              <div className="relative">
-                <Home className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <input
-                  name="direccion"
-                  value={formData.Direccion}
-                  onChange={Identiinput}
-                  className="pl-10"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <input
-                  type="Email"
-                  name="Email"
-                  value={formData.Email}
-                  onChange={Identiinput}
-                  className="pl-10"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Número de Tarjeta</label>
-              <div className="relative">
-                <CreditCard className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <input
-                  name="numeroTarjeta"
-                  value={formData.NumeroTarjeta}
-                  onChange={Identiinput}
-                  className="pl-10"
-                  placeholder="1234 5678 9012 3456"
-                  required
-                  maxLength="19"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Fecha de Vencimiento</label>
-                <input
-                  name="fechaVencimiento"
-                  value={formData.FechaVencimiento}
-                  onChange={Identiinput}
-                  placeholder="MM/AA"
-                  required
-                  maxLength="5"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-sm font-medium">CVV</label>
-                <input
-                  type="password"
-                  name="cvv"
-                  value={formData.CVV}
-                  onChange={Identiinput}
-                  maxLength="4"
-                  required
-                />
-              </div>
-            </div>
-
-            {error && (
-              <div className="text-red-500 text-sm p-2 bg-red-50 rounded">{error}</div>
-            )}
-
-            <button 
-              type="submit" 
-              className="w-full bg-amber-700 hover:bg-amber-800 text-white"
-              disabled={ProcesarPago}
-            >
-              {ProcesarPago ? (
-                <span className="flex items-center gap-2">
-                  <Loader className="animate-spin" size={16} />
-                  Procesando pago...
-                </span>
-              ) : (
-                'Realizar Pago'
-              )}
-            </button>
-          </form>
-        </card>*/}
       </div>
     </div>
   );

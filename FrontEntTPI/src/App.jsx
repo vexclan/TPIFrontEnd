@@ -28,7 +28,7 @@ export default class app extends Component {
           <PagoDeDependencia/>
         </Route>
         <Route path="/Cliente/Facturas">
-          <FormulariDeDependenciaDeDireccion/>
+          <FacturaDeDependencia/>
         </Route>
         <Route>404</Route>
       </Switch>

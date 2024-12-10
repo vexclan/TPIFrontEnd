@@ -2,6 +2,30 @@ import React, { useState } from 'react';
 import { CreditCard, User, CalendarDays, Lock, Check, X } from 'lucide-react';
 import './pago.css';
 
+async function get(dato) {
+  sessionStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0NjMwMTgsImRhdGEiOnsiVXN1YXJpb19pZCI6NSwiVXN1YXJpbyI6IkNlbGluYSJ9LCJpYXQiOjE3MzM0NDE0MTh9.-XYiY4Z-8zpQMyYH2ixVduoo7voTXkGLkV2HPpZrKwI')
+  const token = sessionStorage.getItem('token')
+  const url = "http://localhost:3000/api/articulo"
+  const config = {
+    headers:{
+      authorization:token
+    },
+    params: {
+      id: dato !== ""? dato: null
+    }
+  }
+  console.log(config)
+
+  try {
+    const respuesta = await axios.get(url,config);
+    console.log('respuesta data get :',respuesta.data);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+    alert(error);
+    throw error;
+  }
+
 const PaymentPage = () => {
   const [cardData, setCardData] = useState({
     cardOwner: '',
