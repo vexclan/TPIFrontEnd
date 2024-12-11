@@ -21,7 +21,7 @@ export default class FormulariEditar extends Component {
   }
   
   async componentDidMount() {
-    //sessionStorage.setItem('token' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0MjA4MTgsImRhdGEiOnsiVXN1YXJpb19pZCI6MSwiVXN1YXJpbyI6IkRpZWdvIn0sImlhdCI6MTczMzM5OTIxOH0.PIh6ZiRjdKInm3YMGqh2rkW_3Q3MBQzmzuQzdWfrlDA')
+    //sessionStorage.setItem('token' , '')
     const token = sessionStorage.getItem("token")
     this.setState({token: token })
     console.log('token : '+token);
@@ -73,7 +73,7 @@ export default class FormulariEditar extends Component {
 
   cargarArticulo(ID){
     this.setState({id:ID})
-    console.log('actualizando el articulo mostrado : ',this.state.articulo[ID],' id : ', ID);
+    console.log('actualizando el articulo mostrado : ',this.state.articulo[ID],' id : ', ID,' de ', this.state.articulo);
     this.setState({nombre: this.state.articulo[ID].nombre})
     this.setState({descripcion: this.state.articulo[ID].descripcion})
     this.setState({precio: this.state.articulo[ID].precio})
@@ -101,7 +101,7 @@ export default class FormulariEditar extends Component {
     axios.put(url,formData,config)
     .then((respuesta) => {
       console.log('respuesta data put : ',respuesta.data);
-      this.get(this.state.id)
+      this.get()
       this.cargarArticulo(this.state.id)
     })
     .catch((error) => {
