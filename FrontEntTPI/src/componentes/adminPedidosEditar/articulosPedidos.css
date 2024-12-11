@@ -1,0 +1,54 @@
+.imagen_del_articulo {
+    width: auto;
+    height: 60px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.articulo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+    background-color: rgba(255, 250, 250, 0.308);
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.articulos_pedidos {
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: rgba(128, 128, 128, 0.308); 
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    align-items: center;
+
+}
+
+.botonera {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+
+.texto {
+    text-wrap: nowrap;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
