@@ -1,0 +1,169 @@
+import React, { useState } from 'react';
+
+const Registro = () => {
+  // Estados para los campos del formulario
+  const [nombre, setNombre] = useState('');
+  const [dni, setDni] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [repetirContrasena, setRepetirContrasena] = useState('');
+
+  // Estados para manejar errores
+  const [errores, setErrores] = useState({});
+
+  // Función para validar el formulario
+  const validarFormulario = () => {
+    const nuevosErrores = {};
+
+    // Validación de nombre
+    if (!nombre.trim()) {
+      nuevosErrores.nombre = 'El nombre es obligatorio';
+    }
+
+    // Validación de DNI
+    if (!dni.trim()) {
+      nuevosErrores.dni = 'El DNI es obligatorio';
+    } else if (!/^\d{8}$/.test(dni)) {
+      nuevosErrores.dni = 'El DNI debe tener 8 dígitos';
+    }
+
+    // Validación de correo
+    if (!correo.trim()) {
+      nuevosErrores.correo = 'El correo es obligatorio';
+    } else if (!/\S+@\S+\.\S+/.test(correo)) {
+      nuevosErrores.correo = 'El correo no es válido';
+    }
+
+    // Validación de contraseña
+    if (!contrasena.trim()) {
+      nuevosErrores.contrasena = 'La contraseña es obligatoria';
+    } else if (contrasena.length < 6) {
+      nuevosErrores.contrasena = 'La contraseña debe tener al menos 6 caracteres';
+    }
+
+    // Validación de repetir contraseña
+    if (!repetirContrasena.trim()) {
+      nuevosErrores.repetirContrasena = 'Debe repetir la contraseña';
+    } else if (contrasena !== repetirContrasena) {
+      nuevosErrores.repetirContrasena = 'Las contraseñas no coinciden';
+    }
+
+    setErrores(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
+  };
+
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validar formulario
+    if (validarFormulario()) {
+      try {
+        // Solicitud de registro usando fetch nativo
+        const respuesta = await fetch('/api/registro', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombre,
+            dni,
+            correo,
+            contrasena
+          })
+        });
+
+        // Verificar si la respuesta es exitosa
+        if (respuesta.ok) {
+          const datos = await respuesta.json();
+          alert('Registro exitoso');
+          console.log(datos);
+        } else {
+          // Manejar errores de respuesta
+          const errorDatos = await respuesta.json();
+          alert(errorDatos.mensaje || 'Hubo un problema con el registro');
+        }
+      } catch (error) {
+        // Manejar errores de red
+        console.error('Error en el registro:', error);
+        alert('No se pudo completar el registro. Verifique su conexión.');
+      }
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-6 text-center">Registro de Usuario</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="nombre" className="block text-gray-700 mb-2">Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            className={`w-full px-3 py-2 border rounded-md ${errores.nombre ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errores.nombre && <p className="text-red-500 text-sm mt-1">{errores.nombre}</p>}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="dni" className="block text-gray-700 mb-2">DNI</label>
+          <input
+            type="text"
+            id="dni"
+            value={dni}
+            onChange={(e) => setDni(e.target.value)}
+            className={`w-full px-3 py-2 border rounded-md ${errores.dni ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errores.dni && <p className="text-red-500 text-sm mt-1">{errores.dni}</p>}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="correo" className="block text-gray-700 mb-2">Correo Electrónico</label>
+          <input
+            type="email"
+            id="correo"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            className={`w-full px-3 py-2 border rounded-md ${errores.correo ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errores.correo && <p className="text-red-500 text-sm mt-1">{errores.correo}</p>}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="contrasena" className="block text-gray-700 mb-2">Contraseña</label>
+          <input
+            type="password"
+            id="contrasena"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+            className={`w-full px-3 py-2 border rounded-md ${errores.contrasena ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errores.contrasena && <p className="text-red-500 text-sm mt-1">{errores.contrasena}</p>}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="repetirContrasena" className="block text-gray-700 mb-2">Repetir Contraseña</label>
+          <input
+            type="password"
+            id="repetirContrasena"
+            value={repetirContrasena}
+            onChange={(e) => setRepetirContrasena(e.target.value)}
+            className={`w-full px-3 py-2 border rounded-md ${errores.repetirContrasena ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errores.repetirContrasena && <p className="text-red-500 text-sm mt-1">{errores.repetirContrasena}</p>}
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+        >
+          Registrarse
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Registro;
