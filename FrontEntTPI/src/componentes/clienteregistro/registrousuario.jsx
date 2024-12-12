@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import './registro.css'
 
 const Registro = () => {
   // Estados para los campos del formulario
@@ -92,75 +94,71 @@ const Registro = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">Registro de Usuario</h2>
+    <div className="login-box">
+      <h2>Registro de Usuario</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="nombre" className="block text-gray-700 mb-2">Nombre</label>
+        <div className="user-box">
           <input
             type="text"
-            id="nombre"
+            required
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${errores.nombre ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errores.nombre && <p className="text-red-500 text-sm mt-1">{errores.nombre}</p>}
+          <label>Nombre</label>
+          {errores.nombre && <p className="error-message">{errores.nombre}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="dni" className="block text-gray-700 mb-2">DNI</label>
+        <div className="user-box">
           <input
             type="text"
-            id="dni"
+            required
             value={dni}
             onChange={(e) => setDni(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${errores.dni ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errores.dni && <p className="text-red-500 text-sm mt-1">{errores.dni}</p>}
+          <label>DNI</label>
+          {errores.dni && <p className="error-message">{errores.dni}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="correo" className="block text-gray-700 mb-2">Correo Electrónico</label>
+        <div className="user-box">
           <input
             type="email"
-            id="correo"
+            required
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${errores.correo ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errores.correo && <p className="text-red-500 text-sm mt-1">{errores.correo}</p>}
+          <label>Correo Electrónico</label>
+          {errores.correo && <p className="error-message">{errores.correo}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="contrasena" className="block text-gray-700 mb-2">Contraseña</label>
+        <div className="user-box">
           <input
             type="password"
-            id="contrasena"
+            required
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${errores.contrasena ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errores.contrasena && <p className="text-red-500 text-sm mt-1">{errores.contrasena}</p>}
+          <label>Contraseña</label>
+          {errores.contrasena && <p className="error-message">{errores.contrasena}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="repetirContrasena" className="block text-gray-700 mb-2">Repetir Contraseña</label>
+        <div className="user-box">
           <input
             type="password"
-            id="repetirContrasena"
+            required
             value={repetirContrasena}
             onChange={(e) => setRepetirContrasena(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${errores.repetirContrasena ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errores.repetirContrasena && <p className="text-red-500 text-sm mt-1">{errores.repetirContrasena}</p>}
+          <label>Repetir Contraseña</label>
+          {errores.repetirContrasena && <p className="error-message">{errores.repetirContrasena}</p>}
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
-        >
+        <a href="#" onClick={handleSubmit}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
           Registrarse
-        </button>
+        </a>
       </form>
     </div>
   );

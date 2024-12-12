@@ -1,7 +1,9 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
 import FormularioInicio from './componentes/inicio/formularioinicio'
-import Iniciocaf from './componentes/inicio/iniciocaf'
+import Vistainiciocliente from './componentes/clientevistainicio/vistainiciocliente'
+import Informecompleto  from './componentes/clienteinfocompleta/informecompleto'
+import Registrousuario from './componentes/clienteregistro/registrousuario'
 import './App.css'
 
 export default class app extends Component {
@@ -16,12 +18,18 @@ export default class app extends Component {
     return(
       <>
       <Switch>
-        <Route path="/"><Redirect to="/login"/></Route>
-        <Route path="/login">
+        <Route path="/"><Redirect to="/FormularioInicio"/></Route>
+        <Route path="/FormularioInicio">
           <FormularioInicio/>
         </Route>
-        <Route path="/iniciocaf">
-          <Iniciocaf/>
+        <Route path="/vistainiciocliente">
+          <Vistainiciocliente/>
+        </Route>
+        <Route path="/informecompleto">
+          <Informecompleto/>
+        </Route>
+        <Route path="/registrousuario">
+          <Registrousuario/>
         </Route>
         <Route>404</Route>
       </Switch>

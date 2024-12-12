@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Search, ShoppingCart, Menu, X, Star, Heart, Eye } from 'lucide-react';
 
 const CoffeeShop = () => {
@@ -6,20 +7,85 @@ const CoffeeShop = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // State for products and cart
+  const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const cartItems = [
-    { id: 1, name: 'objeto en el carrito 1', price: 15.99, image: '/api/placeholder/80/80' },
-    { id: 2, name: 'objeto en el carrito 2', price: 15.99, image: '/api/placeholder/80/80' },
-    { id: 3, name: 'objeto en el carrito 3', price: 15.99, image: '/api/placeholder/80/80' },
-    { id: 4, name: 'objeto en el carrito 4', price: 15.99, image: '/api/placeholder/80/80' },
-  ];
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        // Replace with your actual API endpoint
+        const response = await axios.get('https://api.example.com/coffee-products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        // Fallback to mock data if API call fails
+        setProducts([
+          {
+            id: 1,
+            name: 'Café Especial',
+            price: 12.99,
+            oldPrice: 15.99,
+            image: '/api/placeholder/200/200',
+          },
+          {
+            id: 2,
+            name: 'Café Tostado',
+            price: 14.99,
+            oldPrice: 17.99,
+            image: '/api/placeholder/200/200',
+          }
+        ]);
+      }
+    };
 
+    fetchProducts();
+  }, []);
 
-  const products = [
-    { id: 1, name: 'cafe de nicaragua', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 2, name: 'cafe de colombia', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-    { id: 3, name: 'cafe de peru', price: 15.99, oldPrice: 20.99, image: '/api/placeholder/200/200' },
-  ];
+  // Add to cart functionality
+  const addToCart = (product) => {
+    setCartItems(prevItems => {
+      // Check if product already in cart
+      const existingItem = prevItems.find(item => item.id === product.id);
+      if (existingItem) {
+        return prevItems.map(item => 
+          item.id === product.id 
+            ? {...item, quantity: (item.quantity || 1) + 1} 
+            : item
+        );
+      }
+      return [...prevItems, {...product, quantity: 1}];
+    });
+  };
+
+  // Remove from cart functionality
+  const removeFromCart = (productId) => {
+    setCartItems(prevItems => 
+      prevItems.filter(item => item.id !== productId)
+    );
+  };
+
+  // Search functionality
+  const handleSearch = async (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+
+    try {
+      // Replace with your actual search API endpoint
+      const response = await axios.get(`https://api.example.com/search?term=${term}`);
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error searching products:', error);
+    }
+  };
+
+  // Filtered products for search
+  const filteredProducts = products.filter(product => 
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -33,9 +99,6 @@ const CoffeeShop = () => {
           <a href="#about" className="hover:text-yellow-600">sobre</a>
           <a href="#menu" className="hover:text-yellow-600">menu</a>
           <a href="#products" className="hover:text-yellow-600">productos</a>
-          <a href="#review" className="hover:text-yellow-600">reseñas</a>
-          <a href="#contact" className="hover:text-yellow-600">contacto</a>
-          <a href="#blogs" className="hover:text-yellow-600">blogs</a>
         </nav>
 
         <div className="flex items-center space-x-4">
@@ -46,7 +109,13 @@ const CoffeeShop = () => {
 
         <div className={`absolute top-full left-0 right-0 p-4 bg-white ${isSearchOpen ? 'block' : 'hidden'}`}>
           <div className="relative">
-            <input type="search" placeholder="buscar aquí..." className="w-full p-2 border rounded" />
+            <input 
+              type="search" 
+              placeholder="buscar aquí..." 
+              className="w-full p-2 border rounded"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
             <Search className="absolute right-2 top-2" />
           </div>
         </div>
@@ -54,15 +123,23 @@ const CoffeeShop = () => {
         <div className={`absolute top-full right-0 w-80 bg-white shadow-lg p-4 ${isCartOpen ? 'block' : 'hidden'}`}>
           {cartItems.map(item => (
             <div key={item.id} className="flex items-center space-x-4 mb-4">
-              <button className="text-red-500"><X /></button>
+              <button 
+                className="text-red-500"
+                onClick={() => removeFromCart(item.id)}
+              >
+                <X />
+              </button>
               <img src={item.image} alt={item.name} className="w-20 h-20 object-cover" />
               <div>
                 <h3 className="font-semibold">{item.name}</h3>
                 <div className="text-yellow-600">${item.price}/-</div>
+                <div>Cantidad: {item.quantity}</div>
               </div>
             </div>
           ))}
-          <button className="w-full bg-yellow-600 text-white py-2 rounded">comprar</button>
+          <button className="w-full bg-yellow-600 text-white py-2 rounded">
+            comprar
+          </button>
         </div>
       </header>
 
@@ -92,10 +169,10 @@ const CoffeeShop = () => {
       <section id="products" className="py-16">
         <h1 className="text-center text-4xl font-bold mb-12">nuestros <span className="text-yellow-600">productos</span></h1>
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <div key={product.id} className="bg-white rounded-lg shadow-lg p-6 relative">
               <div className="absolute top-4 right-4 space-x-2">
-                <button><ShoppingCart className="hover:text-yellow-600" /></button>
+                <button onClick={() => addToCart(product)}><ShoppingCart className="hover:text-yellow-600" /></button>
                 <button><Heart className="hover:text-yellow-600" /></button>
                 <button><Eye className="hover:text-yellow-600" /></button>
               </div>
@@ -114,35 +191,6 @@ const CoffeeShop = () => {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section id="contact" className="py-16 bg-gray-100">
-        <h1 className="text-center text-4xl font-bold mb-12"><span className="text-yellow-600">contactenos</span></h1>
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1629452077891!5m2!1sen!2sin"
-            className="w-full h-96 rounded-lg"
-            allowFullScreen=""
-            loading="lazy"
-          ></iframe>
-          <form className="bg-white p-8 rounded-lg shadow-lg">
-            <h3 className="text-2xl font-bold mb-6">póngase en contacto</h3>
-            <div className="space-y-4">
-              <div className="relative">
-                <input type="text" placeholder="nombre" className="w-full p-2 pl-10 border rounded" />
-              </div>
-              <div className="relative">
-                <input type="email" placeholder="email" className="w-full p-2 pl-10 border rounded" />
-              </div>
-              <div className="relative">
-                <input type="number" placeholder="numero" className="w-full p-2 pl-10 border rounded" />
-              </div>
-              <button type="submit" className="w-full bg-yellow-600 text-white py-2 rounded">
-                contactese ahora
-              </button>
-            </div>
-          </form>
         </div>
       </section>
 
