@@ -15,7 +15,7 @@ export default class  extends Component {
                 <p>nombre : {this.props.objeto.nombre}</p>
                 <BotonRedireccionador
                     className='Boton'
-                    ruta={'/admin/Ubicacion/editar/'+this.props.objeto.id+this.props.objeto.tabla}
+                    ruta={'/admin/Ubicacion/editar/'+this.props.objeto.id+'/'+this.props.objeto.tabla}
                 >editar</BotonRedireccionador>
                 <Boton
                     click={()=>this.props.borrar(this.props.objeto.id,this.props.objeto.tabla)}

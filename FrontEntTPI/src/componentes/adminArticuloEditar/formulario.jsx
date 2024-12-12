@@ -128,8 +128,8 @@ export default class FormulariEditar extends Component {
           onChange={(e)=> this.cargarArticulo(e.target.value)}
         >
           <option value={null} >id a editar </option>         
-          {id_array.map((contador, index)=>
-            <option value={contador} key={index}>{articulo[contador].id}</option>
+          {id_array.map((contenido, index)=>
+            <option value={contenido} key={index}>{articulo[contenido].id}</option>
             
           )}
         </select>

@@ -18,7 +18,7 @@ export default class FormulariEditar extends Component {
   }
 
   async componentDidMount() {
-    /*sessionStorage.setItem('token' , '')*/
+    //sessionStorage.setItem('token' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5ODM3OTQsImRhdGEiOnsiVXN1YXJpb19pZCI6MSwiVXN1YXJpbyI6IkRpZWdvIn0sImlhdCI6MTczMzk2MjE5NH0.f4PvWIzAFNcEdn53eUnEKx_1V3OFBp_i3MsT8W54nzI')
     const token = sessionStorage.getItem("token")
     this.setState({token: token })
     console.log('token : '+token);

@@ -10,6 +10,7 @@ import AdminPedidosEditar from './componentes/adminPedidosEditar/adminPedidosEdi
 import AdminDireccion from './componentes/adminDireccion/adminDireccion'
 import AdminDireccionEditar from './componentes/adminDireccionEditar/adminArticuloEditar'
 import AdminUbicacion from './componentes/adminPaisProvinciaCiudad/adminPaisProvinciaCiudad'
+import AdminUbicacionEditar from './componentes/formularioDeDependenciaDeDireccion/formueditar'
 import './App.css'
 
 export default class app extends Component {
@@ -86,6 +87,16 @@ export default class app extends Component {
         </Route>
         <Route path="/admin/ubicacion" >
           <AdminUbicacion/>
+        </Route>
+        <Route path="/admin/ubicacion/editar" >
+          <AdminUbicacionEditar/>
+        </Route>
+        <Route path="/admin/ubicacion/editar/:id" >
+          {(params)=>
+            <AdminUbicacionEditar
+              id={params.id}
+            />
+          }
         </Route>
         <Route>404</Route>
       </Switch>
