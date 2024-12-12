@@ -1,0 +1,68 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const MiCuenta = () => {
+  const [pedidos, setPedidos] = useState([]);
+  const [facturas, setFacturas] = useState([]);
+  const [domicilio, setDomicilio] = useState({});
+
+  useEffect(() => {
+    // Obtener información de pedidos
+    axios.get('/api/pedidos')
+      .then(response => setPedidos(response.data))
+      .catch(error => console.error(error));
+
+    // Obtener información de facturas
+    axios.get('/api/facturas')
+      .then(response => setFacturas(response.data))
+      .catch(error => console.error(error));
+
+    // Obtener información de domicilio
+    axios.get('/api/domicilio')
+      .then(response => setDomicilio(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
+  return (
+    <div className="mi-cuenta">
+      <h2>Mis Pedidos</h2>
+      <div className="pedidos">
+        {pedidos.map(pedido => (
+          <div key={pedido.id} className="pedido">
+            <div>Fecha: {pedido.fecha}</div>
+            <div>
+              <button onClick={() => verDetalle(pedido.id)}>Ver Detalle</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>Mis Facturas</h2>
+      <div className="facturas">
+        {facturas.map(factura => (
+          <div key={factura.id} className="factura">
+            <div>Tipo: {factura.tipo}</div>
+            <div>Comprobante: {factura.comprobante}</div>
+            <div>Número reserva: {factura.numeroReserva}</div>
+            <div>
+              <button onClick={() => verDetalle(factura.id)}>Ver Detalle</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>Mis Domicilios</h2>
+      <div className="domicilios">
+        <div>Envío a domicilio</div>
+        <div>Domicilio: {domicilio.domicilio}</div>
+        <div>Código Postal: {domicilio.codigoPostal}</div>
+        <div>Recibe: {domicilio.recibe}</div>
+        <div>
+          <button onClick={() => cambiarDomicilio()}>Cambiar o agregar domicilio</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MiCuenta;
