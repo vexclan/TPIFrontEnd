@@ -96,6 +96,8 @@ export default class app extends Component {
           {(params)=>
             <AdminPedidosEditar
               id={params.id}
+              nombre={nombre}
+              guardar={(e)=>this.guardar(e)}
             />
           }
         </Route>

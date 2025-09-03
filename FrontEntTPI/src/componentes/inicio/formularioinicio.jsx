@@ -4,8 +4,8 @@ import axios from 'axios';
 import './formulario.css';
 
 const InicioSesion = () => {
-  const [nombreUsuario, setNombreUsuario] = useState('');
-  const [contraseña, setContraseña] = useState('');
+  const [User, setUser] = useState('');
+  const [pass, setpass] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -15,7 +15,7 @@ const InicioSesion = () => {
     setError('');
 
     // Basic validation
-    if (!nombreUsuario || !contraseña) {
+    if (!User || !pass) {
       setError('Por favor, complete todos los campos');
       return;
     }
@@ -23,8 +23,8 @@ const InicioSesion = () => {
     try {
       // Replace with your actual login endpoint
       const respuesta = await axios.post('/api/iniciar-sesion', {
-        nombreUsuario,
-        contraseña
+        User,
+        pass
       });
 
       // Handle successful login
@@ -41,24 +41,24 @@ const InicioSesion = () => {
         <h2>Iniciar Sesión</h2>
         {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: '15px' }}>{error}</div>}
         
-        <div className="user-box">
+        <div className="User-box">
           <input 
             type="text" 
             required 
-            value={nombreUsuario}
-            onChange={(e) => setNombreUsuario(e.target.value)}
+            value={User}
+            onChange={(e) => setUser(e.target.value)}
           />
           <label>Nombre de Usuario</label>
         </div>
         
-        <div className="user-box">
+        <div className="User-box">
           <input 
             type="password" 
             required 
-            value={contraseña}
-            onChange={(e) => setContraseña(e.target.value)}
+            value={pass}
+            onChange={(e) => setpass(e.target.value)}
           />
-          <label>Contraseña</label>
+          <label>pass</label>
         </div>
 
         <a href="#" onClick={handleSubmit}>
