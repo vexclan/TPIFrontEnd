@@ -4,7 +4,7 @@ import axios from 'axios';
 import './formulario.css';
 
 const InicioSesion = () => {
-  const [User, setUser] = useState('');
+  const [user, setuser] = useState('');
   const [pass, setpass] = useState('');
   const [error, setError] = useState('');
 
@@ -15,15 +15,15 @@ const InicioSesion = () => {
     setError('');
 
     // Basic validation
-    if (!User || !pass) {
+    if (!user || !pass) {
       setError('Por favor, complete todos los campos');
       return;
     }
 
     try {
       // Replace with your actual login endpoint
-      const respuesta = await axios.post('/api/iniciar-sesion', {
-        User,
+      const respuesta = await axios.post('http://localhost:3000/api/usuarios/login', {
+        user,
         pass
       });
 
@@ -41,17 +41,17 @@ const InicioSesion = () => {
         <h2>Iniciar Sesión</h2>
         {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: '15px' }}>{error}</div>}
         
-        <div className="User-box">
+        <div className="user-box">
           <input 
             type="text" 
             required 
-            value={User}
-            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            onChange={(e) => setuser(e.target.value)}
           />
           <label>Nombre de Usuario</label>
         </div>
         
-        <div className="User-box">
+        <div className="user-box">
           <input 
             type="password" 
             required 
