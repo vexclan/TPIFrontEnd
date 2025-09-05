@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  padding-top: 60px;
 }
 
 .logo {
@@ -39,4 +40,44 @@
 
 .read-the-docs {
   color: #888;
+}
+
+p{
+  text-align:left;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.targeta {
+  margin: 20px;
+  padding: 20px;
+  max-width: 230px;
+  border-radius: 20px;
+  color: #ffffff;
+  flex: 1;
+  text-align:center;
+}
+
+.Boton {
+  padding: 10px 15px;
+  background-color: rgba(128, 128, 128, 0.295);
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px 10px;
+  color: #ffffff;
+}
+
+.Boton:hover {
+  
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+a {
+  text-decoration: none;
 }
