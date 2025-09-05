@@ -120,7 +120,7 @@ const editarManager = () => {
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
 =======
-  };*/
+  };*//*
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
@@ -202,7 +202,7 @@ const editarManager = () => {
 
  celina
         {editingPais === 'nuevo' && (
-=======
+=======*/
         {/*editingPais === 'nuevo' && (
  main
           <div className="flex justify-end space-x-2 mb-4">
@@ -291,11 +291,11 @@ const editarManager = () => {
         </div>
 =======
         </div>
-          ))*/}
+          ))*/}/*
  main
       </div>
     </div>
   );
 };
 
-export default editarManager;
+export default editarManager;*/
