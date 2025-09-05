@@ -4,7 +4,6 @@ import './Pedidos.css';
 import axios from 'axios';
 
 async function get(dato) {
-  sessionStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM4OTM4NjIsImRhdGEiOnsiVXN1YXJpb19pZCI6NSwiVXN1YXJpbyI6IkNlbGluYSJ9LCJpYXQiOjE3MzM4NzIyNjN9.LLdsDa9Ijlbc0XbM8LgpX6mv7cQu4PXRxSEjp3QIL3o')
   const token = sessionStorage.getItem('token')
   const url = "http://localhost:3000/api/articuloPedido"
   const config = {
