@@ -1,3 +1,37 @@
+/*import React, { useState } from 'react';
+import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+
+const editarManager = () => {
+  const [paises, setPaises] = useState([
+    { id: 1, nombre: ' ' },
+    { id: 2, nombre: ' ' },
+    { id: 3, nombre: ' ' }
+  ]);
+    const [provincia, setprovincia] = useState([
+      { id: 1, nombre: ' ' },
+      { id: 2, nombre: ' ' },
+      { id: 3, nombre: ' ' }
+    ]);
+    const [ciudad, setciudad] = useState([
+      { id: 1, nombre: ' ' },
+      { id: 2, nombre: ' ' },
+      { id: 3, nombre: ' ' }
+    ]); 
+
+  const [editingPais, setEditingPais] = useState(null);
+  const [nuevoPaisNombre, setNuevoPaisNombre] = useState('');
+
+  const agregarPais = () => {
+    if (!nuevoPaisNombre.trim()) return;
+
+    const nuevoPais = {
+      id: Date.now(),
+      nombre: nuevoPaisNombre
+    };
+
+    setPaises([...paises, nuevoPais]);
+    setNuevoPaisNombre('');
+=======
 import React, { useState } from 'react';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import Navbar from '../comun/navbarAdmin';
@@ -52,10 +86,21 @@ const editarManager = () => {
 
     setPaises([...paises, nuevoPais]);
     setnuevoPais('');
+ main
     setEditingPais(null);
   };
 
   const editarPais = (pais) => {
+ celina
+    if (!nuevoPaisNombre.trim()) return;
+
+    setPaises(paises.map(p => 
+      p.id === pais.id ? { ...p, nombre: nuevoPaisNombre } : p
+    ));
+
+    setEditingPais(null);
+    setNuevoPaisNombre('');
+=======
     if (!nuevoPais.trim()) return;
 
     setPaises(paises.map(p => 
@@ -64,19 +109,33 @@ const editarManager = () => {
 
     setEditingPais(null);
     setnuevoPais('');
+ main
   };
 
   const eliminarPais = (paisId) => {
     setPaises(paises.filter(p => p.id !== paisId));
+ celina
+  };
+
+  return (
+    <div className="p-4 bg-gray-100 min-h-screen">
+=======
   };*/
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
       <Navbar/>
+ main
       <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4 text-center">Gestor de Países</h1>
         
         <div className="flex mb-4">
+ celina
+          <input
+            type="text"
+            value={nuevoPaisNombre}
+            onChange={(e) => setNuevoPaisNombre(e.target.value)}
+=======
           
           <label 
             htmlFor="Id"
@@ -98,27 +157,42 @@ const editarManager = () => {
             type="text"
             value={nuevoPais.nombre}
             onChange={(e) => setnuevoPais({nombre:e.target.value,id:nuevoPais.id})}
+ main
             placeholder="Nombre del país"
             className="flex-grow p-2 border rounded-l"
           />
           <input
             type="text"
+ celina
+            value={nuevoProvinciaNombre}
+            onChange={(e) => setNuevoprovinciaNombre(e.target.value)}
+=======
             value={nuevoProvinciaNombre.nombre}
             onChange={(e) => setNuevoProvinciaNombre({nombre:e.target.value,id:nuevoPais.id})}
+ main
             placeholder="Nombre de Provincia"
             className="flex-grow p-2 border rounded-l"
           />
           <input
             type="text"
+ celina
+            value={nuevoPaisNombre}
+            onChange={(e) => setNuevoProvinciaNombre(e.target.value)}
+=======
             value={nuevoCiudadNombre.nombre}
             onChange={(e) => setNuevoCiudadNombre({nombre:e.target.value,id:nuevoPais.id})}
+ main
             placeholder="Nombre del país"
             className="flex-grow p-2 border rounded-l"
           />
           <button 
             onClick={() => {
               setEditingPais(null);
+ celina
+              setNuevoPaisNombre('');
+=======
               setnuevoPais('');
+ main
             }}
             className="bg-green-500 text-white p-2 rounded-r hover:bg-green-600 flex items-center"
           >
@@ -126,7 +200,11 @@ const editarManager = () => {
           </button>
         </div>
 
+ celina
+        {editingPais === 'nuevo' && (
+=======
         {/*editingPais === 'nuevo' && (
+ main
           <div className="flex justify-end space-x-2 mb-4">
             <button 
               onClick={agregarPais}
@@ -154,7 +232,11 @@ const editarManager = () => {
                   <input
                     type="text"
                     defaultValue={pais.nombre}
+ celina
+                    onChange={(e) => setNuevoPaisNombre(e.target.value)}
+=======
                     onChange={(e) => setnuevoPais(e.target.value)}
+ main
                     className="flex-grow p-2 border rounded"
                   />
                   <button 
@@ -166,7 +248,11 @@ const editarManager = () => {
                   <button 
                     onClick={() => {
                       setEditingPais(null);
+ celina
+                      setNuevoPaisNombre('');
+=======
                       setnuevoPais('');
+ main
                     }}
                     className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
                   >
@@ -180,7 +266,11 @@ const editarManager = () => {
                     <button 
                       onClick={() => {
                         setEditingPais(pais.id);
+ celina
+                        setNuevoPaisNombre(pais.nombre);
+=======
                         setnuevoPais(pais.nombre);
+ main
                       }}
                       className="text-blue-500 hover:text-blue-600"
                     >
@@ -196,8 +286,13 @@ const editarManager = () => {
                 </>
               )}
             </div>
+ celina
+          ))}
+        </div>
+=======
         </div>
           ))*/}
+ main
       </div>
     </div>
   );

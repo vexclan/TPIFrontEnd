@@ -1,5 +1,10 @@
 import { Component } from 'react'
 import { Route, Switch, Redirect } from 'wouter'
+import './App.css'
+import FormulariDeDependenciaDeDireccion from './componentes/formularioDeDependenciaDeDireccion/Formdirectadmin'
+import PedidoDeDependencia from './componentes/PedidoDeDependencia/Pedidos'
+import PagoDeDependencia from './componentes/PagoDeDependencia/Pago'
+import FacturaDeDependencia from './componentes/FacturaDeDependencia/Facturas'
 import AdminClientes from './componentes/adminCliente/adminCliente'
 import AdminClientesEditar from './componentes/adminClienteEditar/adminClienteEditar'
 import AdminArticulo from './componentes/adminArticulo/adminArticulo'
@@ -28,6 +33,17 @@ export default class app extends Component {
     return(
       <>
       <Switch>
+        <Route path="/admin/pais/editar">
+          <FormulariDeDependenciaDeDireccion/>
+        </Route>
+        <Route path="/cliente/Pedidos">
+          <PedidoDeDependencia/>
+        </Route>
+        <Route path="/Cliente/Pago">
+          <PagoDeDependencia/>
+        </Route>
+        <Route path="/Cliente/Facturas">
+          <FacturaDeDependencia/>
         <Route path="/"><Redirect to="/FormularioInicio"/></Route>
         <Route path="/FormularioInicio">
           <FormularioInicio/>
