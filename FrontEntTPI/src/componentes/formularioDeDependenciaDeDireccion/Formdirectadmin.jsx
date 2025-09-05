@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { PlusCircle, Trash2, Globe, MapPin, Building2 } from 'lucide-react';
+import Navbar from '../comun/navbarAdmin';
+import axios from 'axios'
 
-async function get(dato) {
-    sessionStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0NjMwMTgsImRhdGEiOnsiVXN1YXJpb19pZCI6NSwiVXN1YXJpbyI6IkNlbGluYSJ9LCJpYXQiOjE3MzM0NDE0MTh9.-XYiY4Z-8zpQMyYH2ixVduoo7voTXkGLkV2HPpZrKwI')
+async function crear(dato, tabla) {
     const token = sessionStorage.getItem('token')
-    const url = "http://localhost:3000/api/articulo"
+    const url = "http://localhost:3000/api/"
     const config = {
       headers:{
         authorization:token
       },
-      params: {
-        id: dato !== ""? dato: null
-      }
+    }
+    const datos={
+      nombre: dato
     }
     console.log(config)
   
     try {
-      const respuesta = await axios.get(url,config);
-      console.log('respuesta data get :',respuesta.data);
+      const respuesta = await axios.post(url+tabla,datos,config);
+      console.log('respuesta data post ' + tabla +  ':',respuesta.data);
       return respuesta;
     } catch (error) {
       console.log(error);
       alert(error);
       throw error;
     }
-
+  }
 const LocationManagement = () => {
   const [locations, setLocations] = useState({
     countries: [],
@@ -132,7 +133,8 @@ const LocationManagement = () => {
 
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-8">Gestión de Ubicaciones</h1>
+      <Navbar/>
+      <h1 className="text-3xl font-bold text-center mb-8">Crear Ubicaciones</h1>
       
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white p-6 rounded-lg shadow-md">
@@ -148,7 +150,7 @@ const LocationManagement = () => {
               className="flex-grow p-2 border rounded-l" 
             />
             <button 
-              onClick={() => addLocation('country')} 
+              onClick={() => crear(newCountry,'pais')} 
               className="bg-blue-500 text-white p-2 rounded-r"
             >
               <PlusCircle size={20} />
@@ -184,12 +186,10 @@ const LocationManagement = () => {
                 onChange={(e) => setNewProvince(e.target.value)}
                 placeholder="Nombre de la provincia" 
                 className="flex-grow p-2 border rounded-l" 
-                disabled={!selectedCountry}
               />
               <button 
-                onClick={() => addLocation('province')} 
+                onClick={() =>  crear(newProvince,'provincia')} 
                 className="bg-blue-500 text-white p-2 rounded-r"
-                disabled={!selectedCountry}
               >
                 <PlusCircle size={20} />
               </button>
@@ -227,12 +227,10 @@ const LocationManagement = () => {
                 onChange={(e) => setNewCity(e.target.value)}
                 placeholder="Nombre de la ciudad" 
                 className="flex-grow p-2 border rounded-l" 
-                disabled={!selectedCountry || !selectedProvince}
               />
               <button 
-                onClick={() => addLocation('city')} 
+                onClick={() =>  crear(newCity,'ciudad')} 
                 className="bg-blue-500 text-white p-2 rounded-r"
-                disabled={!selectedCountry || !selectedProvince}
               >
                 <PlusCircle size={20} />
               </button>

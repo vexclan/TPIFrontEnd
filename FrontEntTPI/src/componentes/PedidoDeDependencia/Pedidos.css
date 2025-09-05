@@ -16,10 +16,10 @@ body {
   }
   
   .border {
-    border-radius: 8px;
+    border-radius: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background-color: white;
-    border: 1px solid #e2e8f0;
+    background-color: rgba(128, 128, 128, 0.295);
+    width: 500px;
   }
   
   .border:hover {

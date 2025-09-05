@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Component, Loader } from 'lucide-react';  
 import './Pedidos.css';
 import axios from 'axios';
-get()
 
 async function get(dato) {
-  sessionStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0NjMwMTgsImRhdGEiOnsiVXN1YXJpb19pZCI6NSwiVXN1YXJpbyI6IkNlbGluYSJ9LCJpYXQiOjE3MzM0NDE0MTh9.-XYiY4Z-8zpQMyYH2ixVduoo7voTXkGLkV2HPpZrKwI')
+  sessionStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQwNjE4ODMsImRhdGEiOnsiVXN1YXJpb19pZCI6NSwiVXN1YXJpbyI6IkNlbGluYSJ9LCJpYXQiOjE3MzQwNDAyODN9.xA3zyZDaZVu2BZprUqTlJg8wcJIOIc_WzzskrhhvB0w')
   const token = sessionStorage.getItem('token')
-  const url = "http://localhost:3000/api/articulo"
+  const url = "http://localhost:3000/api/articuloPedido"
   const config = {
     headers:{
       authorization:token
@@ -20,7 +19,7 @@ async function get(dato) {
 
   try {
     const respuesta = await axios.get(url,config);
-    console.log('respuesta data get :',respuesta.data);
+    console.log('respuesta data get :',respuesta.data.Articulo_Pedido);
     return respuesta;
   } catch (error) {
     console.log(error);
@@ -31,43 +30,20 @@ async function get(dato) {
 
 const PaymentPage = () => {
   const [productos, setProductos] = useState([]);
-  const [Card, setCard] = useState ([]);
   const [loading, setLoading] = useState(true);
-  const [ProcesarPago, setProcesarPago] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    Nombre: '',
-    Apellido: '',
-    Direccion: '',
-    Email: '',
-    NumeroTarjeta: '',
-    FechaVencimiento: '',
-    CVV: ''
+
   });
   
    
   useEffect(() => {
+    console.log('useEffect');
+    
     const fetchProductos = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 1000));
-        /*const mockProductos = [
-          {
-            id: 1,
-            nombre: "Cafe",
-            precio: 799.99,
-            cantidad: 1,
-            imagen: "/api/placeholder/200/200",
-            descripcion: "Cafe en granos tostados"
-          },
-          {
-            id: 2,
-            nombre: "Frappuchino",
-            precio: 599.99,
-            cantidad: 1,
-            imagen: "/api/placeholder/200/200",
-            descripcion: "Bebida helada a base de cafe,azucar, hielo y crema"
-          }
-        ];*/
+        const MockProductos = (await get()).data.Articulo_Pedido;
         setProductos(MockProductos);
         setLoading(false);
       } catch (error) {
@@ -96,21 +72,6 @@ const PaymentPage = () => {
     return { subtotal, total };
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    ProcesarPago(true);
-    setError('');
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert('¡Pago procesado con éxito!');
-    } catch (error) {
-      setError('Error al procesar el pago. Por favor, intente nuevamente.');
-    } finally {
-      ProcesarPago(false);
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500 flex items-center justify-center">
@@ -127,14 +88,13 @@ const PaymentPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500 p-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <card className="p-6">
           <h2 className="text-2xl font-bold mb-6">Tu Carrito</h2>
           
           <div className="space-y-4 mb-6">
             {productos.map(producto => (
               <div key={producto.id} className="flex space-x-4 p-4 border rounded-lg hover:shadow-md transition-shadow">
                 <img 
-                  src={producto.imagen} 
+                  src={'http://localhost:3000/'+producto.imagen} 
                   alt={producto.nombre}
                   className="w-24 h-24 object-cover rounded-md"
                 />
@@ -162,7 +122,6 @@ const PaymentPage = () => {
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
-        </card>
       </div>
     </div>
   );
