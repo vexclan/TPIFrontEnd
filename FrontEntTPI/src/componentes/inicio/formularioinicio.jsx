@@ -11,25 +11,22 @@ const InicioSesion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Clear previous errors
+  
     setError('');
 
-    // Basic validation
     if (!user || !pass) {
       setError('Por favor, complete todos los campos');
       return;
     }
 
     try {
-      // Replace with your actual login endpoint
       const respuesta = await axios.post('http://localhost:3000/api/usuarios/login', {
         user,
         pass
       });
 
-      // Handle successful login
       console.log('Inicio de sesión exitoso', respuesta.data);
-      // Here you might redirect or update app state
+
     } catch (err) {
       setError(err.response?.data?.message || 'Inicio de sesión fallido');
     }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingCart, Menu, X, Star, Heart, Eye } from 'lucide-react';
+import { Search, ShoppingCart, Menu, X, Star, Heart, Eye, User, Mail, Phone, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import './vista.css';
 
 const CoffeeShop = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -7,288 +8,404 @@ const CoffeeShop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // State for products and cart
   const [products, setProducts] = useState([]);
+  const [menuItems, setMenuItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', number: '' });
 
-  // Mock data for products (since we can't use external APIs in artifacts)
   useEffect(() => {
     setProducts([
       {
         id: 1,
-        name: 'Café Especial',
-        price: 12.99,
-        oldPrice: 15.99,
+        name: 'cafe de nicaragua',
+        price: 15.99,
+        oldPrice: 20.99,
         image: '',
       },
       {
         id: 2,
-        name: 'Café Tostado',
-        price: 14.99,
-        oldPrice: 17.99,
-        image: '',
+        name: 'cafe de colombia',
+        price: 15.99,
+        oldPrice: 20.99,
+        image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=400&fit=crop',
       },
       {
         id: 3,
-        name: 'Café Premium',
-        price: 18.99,
-        oldPrice: 21.99,
-        image: '',
-      },
-      {
-        id: 4,
-        name: 'Café Orgánico',
-        price: 16.99,
-        oldPrice: 19.99,
-        image: '',
-      },
-      {
-        id: 5,
-        name: 'Café Descafeinado',
-        price: 13.99,
-        oldPrice: 16.99,
-        image: '',
-      },
-      {
-        id: 6,
-        name: 'Café Gourmet',
-        price: 22.99,
-        oldPrice: 25.99,
+        name: 'cafe de peru',
+        price: 15.99,
+        oldPrice: 20.99,
         image: '',
       }
     ]);
+
+    setMenuItems([
+      { id: 11, name: 'lagrima', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200&h=200&fit=crop' },
+      { id: 12, name: 'capuchino', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=200&h=200&fit=crop' },
+      { id: 13, name: 'americano', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?w=200&h=200&fit=crop' },
+      { id: 14, name: 'irlandes', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=200&h=200&fit=crop' },
+      { id: 15, name: 'expresso', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=200&h=200&fit=crop' },
+      { id: 16, name: 'machiatto', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop' }
+    ]);
+
+    setCartItems([
+      { id: 101, name: 'objeto en el carrito 1', price: 15.99, image: 'https://images.unsplash.com/photo-1559496417-e7f25cb247cd?w=100&h=100&fit=crop', quantity: 1 },
+      { id: 102, name: 'objeto en el carrito 2', price: 15.99, image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100&h=100&fit=crop', quantity: 1 },
+      { id: 103, name: 'objeto en el carrito 3', price: 15.99, image: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e8?w=100&h=100&fit=crop', quantity: 1 },
+      { id: 104, name: 'objeto en el carrito 4', price: 15.99, image: 'https://images.unsplash.com/photo-1559166631-7ddd17ba0ead?w=100&h=100&fit=crop', quantity: 1 }
+    ]);
   }, []);
 
-  // Add to cart functionality
   const addToCart = (product) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
-      if (existingItem) {
-        return prevItems.map(item => 
-          item.id === product.id 
-            ? {...item, quantity: (item.quantity || 1) + 1} 
-            : item
-        );
-      }
-      return [...prevItems, {...product, quantity: 1}];
-    });
+    const newItem = { 
+      ...product, 
+      id: Date.now() + Math.random(),
+      quantity: 1 
+    };
+    setCartItems(prev => [...prev, newItem]);
   };
 
-  // Remove from cart functionality
   const removeFromCart = (productId) => {
     setCartItems(prevItems => 
       prevItems.filter(item => item.id !== productId)
     );
   };
 
-  // Search functionality
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filtered products for search
-  const filteredProducts = products.filter(product => 
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
-  // Calculate total cart items
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Mensaje enviado! Nombre: ${formData.name}, Email: ${formData.email}, Teléfono: ${formData.number}`);
+    setFormData({ name: '', email: '', number: '' });
+  };
+
+  const closeMenus = () => {
+    setIsSearchOpen(false);
+    setIsCartOpen(false);
+    setIsMenuOpen(false);
+  };
+
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setIsMenuOpen(false);
+  };
+
+
   const totalCartItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 
+  const allItems = [...products, ...menuItems];
+  const filteredItems = allItems.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="min-h-screen" style={{ background: '#010103', fontFamily: 'Roboto, sans-serif' }}>
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 border-b border-white border-opacity-30" style={{ background: '#010103' }}>
-        <div className="flex items-center">
-          <img src="" alt="Coffee Shop Logo" className="h-16 w-16 rounded-full" />
+    <div className="coffee-shop" onClick={closeMenus}>
+      <header className="header" onClick={(e) => e.stopPropagation()}>
+        <div className="logo">
+          <img src="./public/logoofi" alt="Logo" />
         </div>
 
-        <nav className={`${isMenuOpen ? 'block' : 'hidden'} md:flex space-x-8`}>
-          <a href="#home" className="text-white text-lg hover:text-yellow-600 hover:border-b hover:border-yellow-600 pb-1 transition-all duration-200 capitalize">inicio</a>
-          <a href="#about" className="text-white text-lg hover:text-yellow-600 hover:border-b hover:border-yellow-600 pb-1 transition-all duration-200 capitalize">sobre</a>
-          <a href="#menu" className="text-white text-lg hover:text-yellow-600 hover:border-b hover:border-yellow-600 pb-1 transition-all duration-200 capitalize">menu</a>
-          <a href="#products" className="text-white text-lg hover:text-yellow-600 hover:border-b hover:border-yellow-600 pb-1 transition-all duration-200 capitalize">productos</a>
+        <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
+          <button onClick={() => scrollToSection('home')}>inicio</button>
+          <button onClick={() => scrollToSection('about')}>sobre</button>
+          <button onClick={() => scrollToSection('menu')}>menu</button>
+          <button onClick={() => scrollToSection('products')}>productos</button>
+          <button onClick={() => scrollToSection('contact')}>contacto</button>
+          <button onClick={() => scrollToSection('blogs')}>blogs</button>
         </nav>
 
-        <div className="flex items-center space-x-6">
-          <button 
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="text-white text-2xl hover:text-yellow-600 transition-colors duration-200"
-          >
+        <div className="icons">
+          <button onClick={(e) => {e.stopPropagation(); setIsSearchOpen(!isSearchOpen);}}>
             <Search />
           </button>
-          <button 
-            onClick={() => setIsCartOpen(!isCartOpen)}
-            className="text-white text-2xl hover:text-yellow-600 transition-colors duration-200 relative"
-          >
+          <button onClick={(e) => {e.stopPropagation(); setIsCartOpen(!isCartOpen);}} className="cart-icon">
             <ShoppingCart />
-            {totalCartItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-yellow-600 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {totalCartItems}
-              </span>
-            )}
+            {totalCartItems > 0 && <span className="cart-count">{totalCartItems}</span>}
           </button>
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)} 
-            className="md:hidden text-white text-2xl hover:text-yellow-600 transition-colors duration-200"
-          >
+          <button onClick={(e) => {e.stopPropagation(); setIsMenuOpen(!isMenuOpen);}} id="menu-btn">
             <Menu />
           </button>
         </div>
 
-        {/* Search Form */}
-        <div className={`absolute top-full right-8 bg-white w-80 h-16 flex items-center transition-transform duration-200 ${isSearchOpen ? 'scale-y-100' : 'scale-y-0'} origin-top`}>
+        <div className={`search-form ${isSearchOpen ? 'active' : ''}`} onClick={(e) => e.stopPropagation()}>
           <input 
             type="search" 
-            placeholder="buscar aquí..." 
-            className="w-full h-full px-4 text-lg text-black capitalize-none outline-none"
+            placeholder="search here..." 
             value={searchTerm}
             onChange={handleSearch}
           />
-          <Search className="text-black text-2xl mr-4 hover:text-yellow-600 cursor-pointer" />
+          <Search className="search-icon" />
+          
+          {searchTerm && (
+            <div className="search-results">
+              {filteredItems.length > 0 ? (
+                filteredItems.map(item => (
+                  <div key={item.id} className="search-item" onClick={() => addToCart(item)}>
+                    <img src={item.image} alt={item.name} />
+                    <span>{item.name} - ${item.price}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="search-item">No se encontraron productos</div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Cart Items Container */}
-        <div className={`absolute top-full bg-white w-80 p-6 transition-all duration-300 ${isCartOpen ? 'right-0' : '-right-full'}`} style={{ height: 'calc(100vh - 9.5rem)' }}>
+        <div className={`cart-items-container ${isCartOpen ? 'active' : ''}`} onClick={(e) => e.stopPropagation()}>
           {cartItems.length === 0 ? (
-            <p className="text-black text-center text-lg">Tu carrito está vacío</p>
+            <p className="empty-cart">Tu carrito está vacío</p>
           ) : (
             <>
-              {cartItems.map(item => (
-                <div key={item.id} className="relative flex items-center gap-6 my-8">
-                  <button 
-                    className="absolute top-4 right-4 text-black text-xl hover:text-yellow-600 cursor-pointer"
-                    onClick={() => removeFromCart(item.id)}
-                  >
-                    <X />
-                  </button>
-                  <img src={item.image} alt={item.name} className="h-16 w-16 object-cover rounded" />
-                  <div>
-                    <h3 className="text-xl text-black pb-2">{item.name}</h3>
-                    <div className="text-lg text-yellow-600">${item.price}</div>
-                    <div className="text-sm text-gray-600">Cantidad: {item.quantity}</div>
+              <div className="cart-items">
+                {cartItems.map(item => (
+                  <div key={item.id} className="cart-item">
+                    <button className="fa-times" onClick={() => removeFromCart(item.id)}>
+                      <X />
+                    </button>
+                    <img src={item.image} alt={item.name} />
+                    <div className="content">
+                      <h3>{item.name}</h3>
+                      <div className="price">${item.price}/-</div>
+                    </div>
                   </div>
-                </div>
-              ))}
-              <button className="w-full text-center bg-yellow-600 text-white py-3 px-8 text-lg hover:tracking-wider transition-all duration-200 capitalize">
+                ))}
+              </div>
+              <button className="btn cart-btn" onClick={() => alert('Procesando compra...')}>
                 comprar
               </button>
             </>
           )}
         </div>
-
-        {/* Mobile Menu */}
-        <nav className={`md:hidden absolute top-full bg-white w-80 transition-all duration-300 ${isMenuOpen ? 'right-0' : '-right-full'}`} style={{ height: 'calc(100vh - 9.5rem)' }}>
-          <a href="#home" className="block text-black text-xl m-6 p-2 hover:text-yellow-600">inicio</a>
-          <a href="#about" className="block text-black text-xl m-6 p-2 hover:text-yellow-600">sobre</a>
-          <a href="#menu" className="block text-black text-xl m-6 p-2 hover:text-yellow-600">menu</a>
-          <a href="#products" className="block text-black text-xl m-6 p-2 hover:text-yellow-600">productos</a>
-        </nav>
       </header>
 
-      {/* Home Section */}
-      <section 
-        id="home" 
-        className="min-h-screen flex items-center bg-cover bg-center"
-        style={{ 
-          backgroundImage: 'url()',
-          backgroundAttachment: 'fixed'
-        }}
-      >
-        <div className="max-w-4xl px-8">
-          <h3 className="text-6xl uppercase text-white font-normal mb-4">cafe fresco por las mañanas</h3>
-          <p className="text-xl text-gray-200 font-light leading-relaxed py-4 mb-6">
-            Disfruta del mejor café, preparado con granos seleccionados de las mejores plantaciones del mundo
+      {isModalOpen && (
+        <div className="ventana" onClick={(e) => e.stopPropagation()}>
+          <div className="cerrar">
+            <button onClick={() => setIsModalOpen(false)}>
+              <X />
+            </button>
+          </div>
+          <h2>acerca de nuestros cafes</h2>
+          <p>
+            Cosechado Desde Diferentes Partes Del Mundo, Empaquetado Con Cariño Y Enviado Desde Nuestra Sucursal Son Algunas De Las Cualidades Que Nuestro Cafe Sea Merecedor De Una Probada. exportados desde lugares inigualables y extrabagante por ejemplo alguno de nuestros cafes son traidos del monte Everest
           </p>
-          <button className="inline-block bg-yellow-600 text-white px-12 py-4 text-lg hover:tracking-wider transition-all duration-200 capitalize">
+        </div>
+      )}
+
+      <section id="home" className="home">
+        <div className="content">
+          <h3>cafe fresco por las mañanas</h3>
+          <p></p>
+          <button className="btn" onClick={() => scrollToSection('products')}>
             consigue el tuyo ahora
           </button>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-16">
-        <h1 className="text-center text-white uppercase pb-14 text-4xl">
-          <span className="text-yellow-600">sobre</span> nosotros
-        </h1>
-        <div className="flex items-center flex-wrap" style={{ background: '#13131a' }}>
-          <div className="flex-1 min-w-80">
-            <img src="" alt="about" className="w-full" />
+      <section id="about" className="about">
+        <h1 className="heading"><span>sobre</span> nosotros</h1>
+        <div className="row">
+          <div className="image">
+            <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&h=400&fit=crop" alt="about" />
           </div>
-          <div className="flex-1 min-w-80 p-8">
-            <h3 className="text-3xl text-white mb-4">¿qué hace a nuestro café especial?</h3>
-            <p className="text-lg text-gray-300 py-4 leading-relaxed mb-6">
-              Cosechado desde diferentes partes del mundo, empaquetado con cariño y enviado desde nuestra sucursal son algunas de las cualidades que nuestro cafe sea merecedor de una probada.
-            </p>
-            <button 
-              onClick={() => setIsModalOpen(true)} 
-              className="inline-block bg-yellow-600 text-white px-12 py-4 text-lg hover:tracking-wider transition-all duration-200 capitalize"
-            >
-              Más Información
+          <div className="content">
+            <h3>que hace a nuestro cafe especial?</h3>
+            <p>cosechado desde diferentes partes del mundo, empaquetado con cariño y enviado desde nuestra sucursal son algunas de las cualidades que nuestro cafe sea merecedor de una probada</p>
+            <button className="btn" onClick={() => setIsModalOpen(true)}>
+              Mas Informacion
             </button>
           </div>
         </div>
       </section>
 
-      {/* Products Section */}
-      <section id="products" className="py-16 px-8">
-        <h1 className="text-center text-white uppercase pb-14 text-4xl">
-          nuestros <span className="text-yellow-600">productos</span>
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {filteredProducts.map(product => (
-            <div key={product.id} className="text-center p-8 border border-white border-opacity-30">
-              <div className="flex justify-center space-x-1 mb-4">
-                <button 
-                  onClick={() => addToCart(product)}
-                  className="w-12 h-12 leading-12 text-xl border border-white border-opacity-30 text-white hover:bg-yellow-600 hover:text-black transition-all duration-200"
-                >
-                  <ShoppingCart className="w-5 h-5 mx-auto" />
+      <section id="menu" className="menu">
+        <h1 className="heading">nuestro <span>menu</span></h1>
+        <div className="box-container">
+          {menuItems.map(item => (
+            <div key={item.id} className="box">
+              <img src={item.image} alt={item.name} />
+              <h3>{item.name}</h3>
+              <div className="price">${item.price} <span>{item.oldPrice}</span></div>
+              <button className="btn" onClick={() => addToCart(item)}>
+                añadir al carrito
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="products" className="products">
+        <h1 className="heading">nuestros <span>productos</span></h1>
+        <div className="box-container">
+          {products.map(product => (
+            <div key={product.id} className="box">
+              <div className="icons">
+                <button onClick={() => addToCart(product)}>
+                  <ShoppingCart />
                 </button>
-                <button className="w-12 h-12 leading-12 text-xl border border-white border-opacity-30 text-white hover:bg-yellow-600 hover:text-black transition-all duration-200">
-                  <Heart className="w-5 h-5 mx-auto" />
+                <button>
+                  <Heart />
                 </button>
-                <button className="w-12 h-12 leading-12 text-xl border border-white border-opacity-30 text-white hover:bg-yellow-600 hover:text-black transition-all duration-200">
-                  <Eye className="w-5 h-5 mx-auto" />
+                <button>
+                  <Eye />
                 </button>
               </div>
-              <div className="py-10">
-                <img src={product.image} alt={product.name} className="h-60 mx-auto object-cover rounded" />
+              <div className="image">
+                <img src={product.image} alt={product.name} />
               </div>
-              <div>
-                <h3 className="text-white text-2xl mb-2">{product.name}</h3>
-                <div className="flex justify-center space-x-1 py-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-600 fill-current" />
+              <div className="content">
+                <h3>{product.name}</h3>
+                <div className="stars">
+                  {[...Array(4)].map((_, i) => (
+                    <Star key={i} className="star-filled" />
                   ))}
+                  <Star className="star-half" />
                 </div>
-                <div className="text-white text-2xl">
-                  <span className="text-yellow-600">${product.price}</span>
-                  <span className="text-gray-400 line-through text-lg font-light ml-2">${product.oldPrice}</span>
-                </div>
+                <div className="price">${product.price} <span>${product.oldPrice}</span></div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50" style={{ backgroundColor: 'rgba(59,59,59,0.9)' }}>
-          <div className="bg-gray-800 p-8 rounded-3xl max-w-2xl w-4/5 min-h-64 text-center text-white relative border border-white border-opacity-30">
-            <button 
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-4 text-white text-2xl hover:text-yellow-600"
-            >
-              <X />
+      <section id="review" className="review">
+        <div className="box-container">
+          {[
+          ].map(review => (
+            <div key={review.id} className="box">
+              <img src="https://images.unsplash.com/photo-1589308078059-be1415eab4c7?w=50&h=50&fit=crop" alt="quote" className="quote" />
+              <img src={review.image} alt="user" className="user" />
+              <p>{review.review}</p>
+              <h3>{review.name}</h3>
+              <div className="stars">
+                {[...Array(4)].map((_, i) => (
+                  <Star key={i} className="star-filled" />
+                ))}
+                <Star className="star-half" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" className="contact">
+        <h1 className="heading"><span>contactenos</span></h1>
+        <div className="row">
+          <iframe 
+            className="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1629452077891!5m2!1sen!2sin" 
+            allowFullScreen 
+            loading="lazy"
+          />
+          <form onSubmit={handleSubmit}>
+            <h3>pongase en contacto</h3>
+            <div className="inputBox">
+              <User />
+              <input 
+                type="text" 
+                name="name"
+                placeholder="nombre" 
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="inputBox">
+              <Mail />
+              <input 
+                type="email" 
+                name="email"
+                placeholder="email" 
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="inputBox">
+              <Phone />
+              <input 
+                type="number" 
+                name="number"
+                placeholder="numero" 
+                value={formData.number}
+                onChange={handleInputChange}
+              />
+            </div>
+            <button type="submit" className="btn">
+              contactese ahora
             </button>
-            <h2 className="text-3xl font-normal mb-6 uppercase">Acerca de nuestros cafés</h2>
-            <p className="text-lg leading-relaxed text-gray-300">
-              Cosechado Desde Diferentes Partes Del Mundo, Empaquetado Con Cariño Y Enviado Desde Nuestra Sucursal Son Algunas De Las Cualidades Que Nuestro Cafe Sea Merecedor De Una Probada. Exportados desde lugares inigualables y extravagantes por ejemplo alguno de nuestros cafes son traidos del monte Everest.
-            </p>
+          </form>
+        </div>
+      </section>
+
+      <section id="blogs" className="blogs">
+        <h1 className="heading">nuestros <span>blogs</span></h1>
+        <div className="box-container">
+          <div className="box">
+            <div className="image">
+              <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247cd?w=400&h=250&fit=crop" alt="blog" />
+            </div>
+            <div className="content">
+              <button className="title">mis favoritos de nuestro local</button>
+              <span>de admin / 21 mayo, 2021</span>
+              <button className="btn">mas informacion</button>
+            </div>
+          </div>
+
+          <div className="box">
+            <div className="image">
+              <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=250&fit=crop" alt="blog" />
+            </div>
+            <div className="content">
+              <button className="title">delicioso y refrescante cafe</button>
+              <span>de admin / 28 febrero, 2022</span>
+              <button className="btn">mas informacion</button>
+            </div>
+          </div>
+
+          <div className="box">
+            <div className="image">
+              <img src="https://images.unsplash.com/photo-1587734195503-904fca47e0e8?w=400&h=250&fit=crop" alt="blog" />
+            </div>
+            <div className="content">
+              <button className="title">el arte del latte</button>
+              <span>de admin / 31 de noviembre, 2021</span>
+              <p>la dificil tarea de los baristas de hacer dibujos en el cafe explicado paso a paso</p>
+              <button className="btn">mas informacion</button>
+            </div>
           </div>
         </div>
-      )}
+      </section>
+
+      <section className="footer">
+        <div className="share">
+          <button><Facebook /></button>
+          <button><Twitter /></button>
+          <button><Instagram /></button>
+          <button><Linkedin /></button>
+        </div>
+
+        <div className="links">
+          <button onClick={() => scrollToSection('home')}>inicio</button>
+          <button onClick={() => scrollToSection('about')}>sobre</button>
+          <button onClick={() => scrollToSection('menu')}>menu</button>
+          <button onClick={() => scrollToSection('products')}>productos</button>
+          <button onClick={() => scrollToSection('review')}>reseñas</button>
+          <button onClick={() => scrollToSection('contact')}>contacto</button>
+          <button onClick={() => scrollToSection('blogs')}>blogs</button>
+        </div>
+
+        <div className="credit">
+          creado por <span>Sr Ivan Aquino</span> | Todos los derechos reservados
+        </div>
+      </section>
     </div>
   );
 };
