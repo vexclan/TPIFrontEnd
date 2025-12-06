@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { WalletCards } from 'lucide-react';
 
+async function get(dato) {
+  const token = sessionStorage.getItem('token')
+  const url = "http://localhost:3000/api/articuloFacturas"
+  const config = {
+    headers:{
+      authorization:token
+    },
+    params: {
+      id: dato !== ""? dato: null
+    }
+  }
+}
+  console.log(config)
+
 const facturaData = {
   numero: "F-2024-001",
   fecha: "2024-11-18",
@@ -48,7 +62,7 @@ const FacturacionApp = () => {
     );
   }
 
-  if (!factura) {
+  if (factura) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500">
         <div className="text-white text-xl">Error al cargar la factura</div>

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { CreditCard, User, CalendarDays, Lock, Check, X } from 'lucide-react';
 import './pago.css';
 
-
 const PaymentPage = () => {
   const [cardData, setCardData] = useState({
     cardOwner: '',
