@@ -26,6 +26,8 @@ const InicioSesion = () => {
       });
 
       console.log('Inicio de sesión exitoso', respuesta.data);
+      sessionStorage.setItem('token' , respuesta.data.token);
+      window.location.href = '/vistainiciocliente';
 
     } catch (err) {
       setError(err.response?.data?.message || 'Inicio de sesión fallido');
