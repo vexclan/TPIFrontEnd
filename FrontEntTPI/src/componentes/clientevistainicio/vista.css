@@ -55,8 +55,8 @@ section{
     text-align: center;
     color:#fff;
     text-transform: uppercase;
-    padding-bottom: 3.5rem;
-    font-size: 4rem;
+    padding-bottom: 4.5rem;
+    font-size: 6rem;
 }
 
 .heading span{
@@ -85,7 +85,7 @@ section{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:1.5rem 7%;
+    padding:1.5rem 4%;
     border-bottom: var(--border);
     position: fixed;
     top:0; left: 0; right: 0;
@@ -109,7 +109,7 @@ section{
     color:#fff;
     background: transparent;
     cursor: pointer;
-    margin:0 1rem;
+    margin:1 1rem;
 }
 
 .header .navbar button:hover{
@@ -120,13 +120,15 @@ section{
 
 .header .icons{
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .header .icons button{
     color:#fff;
     cursor: pointer;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     background: transparent;
     display: flex;
     align-items: center;
