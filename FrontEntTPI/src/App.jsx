@@ -37,7 +37,7 @@ export default class app extends Component {
           <FormulariDeDependenciaDeDireccion/>
         </Route>
 
-        <Route path="/Cliente/Pedidos">
+        <Route path="/cliente/Pedidos">
           <PedidoDeDependencia/>
         </Route>
 
@@ -45,9 +45,9 @@ export default class app extends Component {
           <PagoDeDependencia/>
         </Route>
 
-       {<Route path="/Cliente/Facturas">
+        <Route path="/Cliente/Facturas">
           <FacturaDeDependencia/>
-        </Route>}
+        </Route>
 
         <Route path="/">
           <Redirect to="/FormularioInicio"/>

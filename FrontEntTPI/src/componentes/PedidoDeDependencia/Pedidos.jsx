@@ -1,84 +1,129 @@
-import React, { useState, useEffect, useId, createContext, Children } from 'react';
-import { Component, Loader, Type } from 'lucide-react';  
-import axios from 'axios'; 
+import React, { useState, useEffect } from 'react';
+import { Component, Loader } from 'lucide-react';  
+import './Pedidos.css';
+import axios from 'axios';
 
+async function get(dato) {
+  const token = sessionStorage.getItem('token')
+  const url = "http://localhost:3000/api/articuloPedido"
+  const config = {
+    headers:{
+      authorization:token
+    },
+    params: {
+      id: dato !== ""? dato: null
+    }
+  }
+  console.log(config)
 
-const products = [
-  { id: 1, name: "Cafe", price: 1200 },
-  { id: 2, name: "Cappuccino", price: 150 },
-  { id: 3, name: "Cafe con Leche", price: 50 },
-];
-
-function App() {
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    setCart((prevCart) => {
-      const itemExists = prevCart.find((item) => item.id === product.id);
-      if (itemExists) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
-  };
-
-  const removeFromCart = (productId) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item.id !== productId)
-    );
-  };
-
-  const totalPrice = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>🛍️ Carrito de Compras</h1>
-
-      <h2>Productos</h2>
-      {products.map((product) => (
-        <div key={product.id} style={{ marginBottom: "10px" }}>
-          <span>
-            {product.name} - ${product.price}
-          </span>
-          <button
-            style={{ marginLeft: "10px" }}
-            onClick={() => addToCart(product)}
-          >
-            Agregar al carrito
-          </button>
-        </div>
-      ))}
-
-      <h2>Carrito</h2>
-      {cart.length === 0 ? (
-        <p>El carrito está vacío</p>
-      ) : (
-        <ul>
-          {cart.map((item) => (
-            <li key={item.id}>
-              {item.name} (x{item.quantity}) - ${item.price * item.quantity}
-              <button
-                style={{ marginLeft: "10px" }}
-                onClick={() => removeFromCart(item.id)}
-              >
-                Eliminar
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <h3>Total: ${totalPrice}</h3>
-    </div>
-  );
+  try {
+    const respuesta = await axios.get(url,config);
+    console.log('respuesta data get :',respuesta.data.Articulo_Pedido);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+    alert(error);
+    throw error;
+  }
 }
 
-export default App;
+const PaymentPage = () => {
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+
+  });
+  
+   
+  useEffect(() => {
+    console.log('useEffect');
+    
+    const fetchProductos = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const MockProductos = (await get()).data.Articulo_Pedido;
+        setProductos(MockProductos);
+        setLoading(false);
+      } catch (error) {
+        setError('Error al cargar los productos');
+        setLoading(false);
+      }
+    };
+
+    fetchProductos();
+  }, []);
+
+  const Identiinput = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const CalcularTotales = () => {
+    const subtotal = productos.reduce((acc, producto) => 
+      acc + (producto.precio * producto.cantidad), 0
+    );
+
+    const total = subtotal ;
+    return { subtotal, total };
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500 flex items-center justify-center">
+        <div className="text-white flex items-center gap-2">
+          <Loader className="animate-spin" />
+          Cargando productos...
+        </div>
+      </div>
+    );
+  }
+
+  const { subtotal, total } = CalcularTotales();
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-700 to-yellow-500 p-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <h2 className="text-2xl font-bold mb-6">Tu Carrito</h2>
+          
+          <div className="space-y-4 mb-6">
+            {productos.map(producto => (
+              <div key={producto.id} className="flex space-x-4 p-4 border rounded-lg hover:shadow-md transition-shadow">
+                <img 
+                  src={'http://localhost:3000/'+producto.imagen} 
+                  alt={producto.nombre}
+                  className="w-24 h-24 object-cover rounded-md"
+                />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-lg">{producto.nombre}</h3>
+                  <p className="text-gray-600 text-sm">{producto.descripcion}</p>
+                  <div className="flex justify-between items-center mt-2">
+                    <p className="text-gray-600">Cantidad: {producto.cantidad}</p>
+                    <p className="text-lg font-semibold">${producto.precio.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-2 border-t pt-4">
+            <div className="flex justify-between text-gray-600">
+              <span>Subtotal:</span>
+              <span>${subtotal.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-gray-600">
+            </div>
+            <div className="flex justify-between text-xl font-bold mt-4">
+              <span>Total:</span>
+              <span>${total.toFixed(2)}</span>
+            </div>
+          </div>
+      </div>
+    </div>
+  );
+};
+
+export default PaymentPage;
