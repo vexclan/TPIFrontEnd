@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingCart, Menu, X, Star, Heart, Eye, User, Mail, Phone } from 'lucide-react';
+import { Search, ShoppingCart, Menu, X, Star, Heart, Eye, User, Mail, Phone, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import './vista.css';
 
 const CoffeeShop = () => {
@@ -21,7 +21,7 @@ const CoffeeShop = () => {
         name: 'cafe de nicaragua',
         price: 15.99,
         oldPrice: 20.99,
-        image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=400&fit=crop',
+        image: '',
       },
       {
         id: 2,
@@ -35,7 +35,7 @@ const CoffeeShop = () => {
         name: 'cafe de peru',
         price: 15.99,
         oldPrice: 20.99,
-        image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&h=400&fit=crop',
+        image: '',
       }
     ]);
 
@@ -48,6 +48,12 @@ const CoffeeShop = () => {
       { id: 16, name: 'machiatto', price: 15.99, oldPrice: 20.99, image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop' }
     ]);
 
+    setCartItems([
+      { id: 101, name: 'objeto en el carrito 1', price: 15.99, image: 'https://images.unsplash.com/photo-1559496417-e7f25cb247cd?w=100&h=100&fit=crop', quantity: 1 },
+      { id: 102, name: 'objeto en el carrito 2', price: 15.99, image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100&h=100&fit=crop', quantity: 1 },
+      { id: 103, name: 'objeto en el carrito 3', price: 15.99, image: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e8?w=100&h=100&fit=crop', quantity: 1 },
+      { id: 104, name: 'objeto en el carrito 4', price: 15.99, image: 'https://images.unsplash.com/photo-1559166631-7ddd17ba0ead?w=100&h=100&fit=crop', quantity: 1 }
+    ]);
   }, []);
 
   const addToCart = (product) => {
@@ -68,6 +74,7 @@ const CoffeeShop = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -91,6 +98,7 @@ const CoffeeShop = () => {
     setIsMenuOpen(false);
   };
 
+
   const totalCartItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 
   const allItems = [...products, ...menuItems];
@@ -102,7 +110,7 @@ const CoffeeShop = () => {
     <div className="coffee-shop" onClick={closeMenus}>
       <header className="header" onClick={(e) => e.stopPropagation()}>
         <div className="logo">
-          <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100&h=100&fit=crop" alt="Logo" />
+          <img src="./public/logoofi" alt="Logo" />
         </div>
 
         <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
@@ -377,16 +385,26 @@ const CoffeeShop = () => {
       </section>
 
       <section className="footer">
+        <div className="share">
+          <button><Facebook /></button>
+          <button><Twitter /></button>
+          <button><Instagram /></button>
+          <button><Linkedin /></button>
+        </div>
 
         <div className="links">
           <button onClick={() => scrollToSection('home')}>inicio</button>
           <button onClick={() => scrollToSection('about')}>sobre</button>
           <button onClick={() => scrollToSection('menu')}>menu</button>
           <button onClick={() => scrollToSection('products')}>productos</button>
+          <button onClick={() => scrollToSection('review')}>reseñas</button>
           <button onClick={() => scrollToSection('contact')}>contacto</button>
           <button onClick={() => scrollToSection('blogs')}>blogs</button>
         </div>
 
+        <div className="credit">
+          creado por <span>Sr Ivan Aquino</span> | Todos los derechos reservados
+        </div>
       </section>
     </div>
   );
