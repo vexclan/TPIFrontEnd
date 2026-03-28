@@ -171,7 +171,7 @@ const CoffeeShop = () => {
                   </div>
                 ))}
               </div>
-              <button className="btn cart-btn" onClick={() => alert('redirigiendo...')}>
+              <button className="btn cart-btn" onClick={() => alert('Procesando compra...')}>
                 comprar
               </button>
             </>
